@@ -1,0 +1,12 @@
+html, body {
+  margin-left: 10vw;
+  margin-right: 10vw;
+}
+
+/* body {
+  transition: all 0.1s ease-in-out;
+}
+
+body.transitioning {
+  opacity: 0.5;
+} */

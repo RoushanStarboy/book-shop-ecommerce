@@ -1,0 +1,28 @@
+.home-logo{
+    height: 40vh;
+    width: 27vw;
+    float: left;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logo{
+    margin-right: 50%;
+    margin-top: 20vh;
+}
+.home-content{
+    margin-left: 50%;
+    margin-top: 20vh;
+}
+
+.content h1{
+    text-align: center;
+}
+.content p{
+    text-align: center;
+}

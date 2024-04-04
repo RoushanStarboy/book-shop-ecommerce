@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+.nav{
+  height: 100px;
+  width: 100%;
+  z-index: 99;
+  overflow: hidden;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navlogo {
+  border-radius: 50%;
+  max-width: 70px;
+  max-height: 70px;
+}
+
+.navPart2 a{
+  text-decoration: none;
+  color: black;
+  border-radius: 99px;
+  padding: 6px 8px;
+
+}
+.navPart2 {
+  display: flex;
+  align-items: center;
+  gap:40px;
+}
+
+div .navlinks{
+  display: flex;
+  gap:50px;
+}
+
+.navicons{
+  display: flex;
+  gap: 30px;
+}
+.navlinks .active{
+  background-color: #512da8;
+  color: white;
+  transition: all 0.5s ease-in-out;
+}
+
+@media screen and (max-width: 900px){
+  .navPart2 > .navlinks{
+  display: none;
+}
+}
+@media screen and (min-width: 900px){
+.ri-menu-3-line{
+  display: none;
+}
+}
+
+.newNavlinks > .newActive{
+  background-color: #512da8;
+  display: block;
+}
+
+.newNavlinks{
+  position: absolute; /* Position relative to the nearest positioned parent */
+  top: 50px; /* Adjust as needed */
+  left: 0;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 10px; 
+  display: none; /* Initially hidden */
+}
