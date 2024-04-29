@@ -1,7 +1,8 @@
-import React, {useEffect,useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './Home.css';
-import randomQuote from "../../qAPI/quotes";
-// import { clear } from '@testing-library/user-event/dist/clear';
+import randomQuote from "../../qAPI/quotes.jsx";
+import hero from "./component/hero.png";
+
 
 function Home() { 
   const [quote, setQuote] = useState(null); // State to store the quote
@@ -15,23 +16,33 @@ function Home() {
     fetchQuote();
     const interValid = setInterval(() => {
       fetchQuote();   // Fetch new quote every 10 sec
-    }, 30000);
+    }, 10000);
     return () => clearInterval(interValid); // just cleared the function
   }, []);
 
+
   return (
-    <main className="home-container">
-      <div className='logo'>
-        <img src="https://www.creativefabrica.com/wp-content/uploads/2021/03/20/Mountain-logo-Design-Graphics-9785421-1-1-580x435.png" alt="logo" className="home-logo" />
+    <>
+    <div className="home-container">
+      <div id='hero1'>
+        <h1>Discover Your Next</h1>
+        <h1>Great Read</h1>
+        <div id="quote-hero">
+        <p>{quote ? quote.content : 'Loading quote...'}</p>
+        <p>{quote ? quote.author : 'Thinking..'}</p>
+
+        </div>
       </div>
-      <div className="home-content">
-        <h1>Shop Your Dream Book</h1>
-        <p>Consider the Book You Need, Not that what you want!</p>
-        <button type="button">Order Now</button>
+      <div id="hero2">
+        <img id= "heroimg" src={hero} alt='hero'/>
       </div>
-      <p>{quote ? quote.content : 'Loading quote...'}</p>
-      <p>{quote ? quote.author : 'Thinking..'}</p>
-    </main>
+    </div>
+    <div id="takeitdown">
+      <div id="port">
+        <a href='/'> Discover Knowledge</a>
+      </div>
+    </div>
+  </>
   );
 }
 

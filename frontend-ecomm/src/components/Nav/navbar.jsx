@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import "./navbar.css";
-import logo from "./logo/logo.png";
+import icon from "./icon/icon.png";
 import { NavLink } from "react-router-dom";
 
 function Navbar(){
@@ -10,13 +10,13 @@ function Navbar(){
         <>
             <div className="nav">
                 <div className="navPart1">
-                    <img className="navlogo" src={logo} alt="Logo"/>
+                    <img className="navlogo" src={icon} alt="Logo"/>
                 </div>
                 <div className="navPart2">
                     <div className="navlinks">
                         <NavLink to="/" className={(e)=>{return e.isActive? "active": ""}}>Home</NavLink>
-                        <NavLink to="/Category" className={(e)=>{return e.isActive? "active": ""}}>Category</NavLink>
-                        <NavLink to="/About" className={(e)=>{return e.isActive? "active": ""}}>About Us</NavLink>
+                        <NavLink to="/about-us" className={(e)=>{return e.isActive? "active": ""}}>About Us</NavLink>
+                        <NavLink to="/allbooks" className={(e)=>{return e.isActive? "active": ""}}>All Books</NavLink>
                         <NavLink to="/login" className={(e)=>{return e.isActive? "active": ""}}>Login</NavLink>
                     </div>
                     <div className="navicons">
@@ -27,7 +27,7 @@ function Navbar(){
                                 <NavLink to="/About" className={(e)=>{return e.isActive? "newActive": ""}}>About Us</NavLink>
                                 <NavLink to="/login" className={(e)=>{return e.isActive? "newActive": ""}}>Login</NavLink>
                             </div>
-                        <i class="ri-shopping-cart-2-line"></i>
+                            <NavLink to="/cart" className={(e)=>{return e.isActive? "active": ""}}><i class="ri-shopping-cart-2-line"></i></NavLink>
                     </div>
                 </div>
             </div>

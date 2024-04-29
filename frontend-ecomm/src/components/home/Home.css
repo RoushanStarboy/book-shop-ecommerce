@@ -1,28 +1,80 @@
-.home-logo{
-    height: 40vh;
-    width: 27vw;
-    float: left;
+body{
+    background-color: transparent;
+}
+.home-container{
+    display: flex;
+    height: 83.8vh;
+    max-width: 96.5vw;
+    overflow: hidden;
+    position: absolute;
+    flex-direction: column;
+    background-color: transparent;
+}
+#hero1{
+    position: absolute;
+    height: 300px;
+    width: 700px;
+    top:20%;
+    background-color: transparent;
+    
+}
+#hero2{
+    height: 80vh;
+    width: 94vw;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 50px;
+
 }
 
-.content {
+#heroimg{
+    height: 500px;
+    width: 500px;
+}
+
+#hero1 h1{
+    font-size: 70px;
+}
+
+
+#port{
     display: flex;
+    position: relative;
+    width: 200px;
+    height: 60px;
+    border-radius: 50px;
+    border: solid green;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    left: 14%;
+    bottom: 5%;
 }
 
-.logo{
-    margin-right: 50%;
-    margin-top: 20vh;
+#port a{
+    text-decoration: none;
+    cursor:wait;
+    font-size: 16px;
+    font-weight: bold;
 }
-.home-content{
-    margin-left: 50%;
-    margin-top: 20vh;
+#port:hover{
+    background-color: #512da8;
 }
 
-.content h1{
-    text-align: center;
+#port:hover a{
+    color: #f7f7f7;
+    font-size: 18px;
 }
-.content p{
-    text-align: center;
+
+#quote-hero{
+    height: 100px;
+    width: 500px;
+    overflow:scroll;
+}
+#takeitdown{
+    height: 70vh;
+    width: 70vh;
+    display: flex;
+    flex-direction: column-reverse;
+
 }

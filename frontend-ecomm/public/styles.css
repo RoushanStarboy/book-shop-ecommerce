@@ -1,12 +1,12 @@
-html, body {
-  margin-left: 10vw;
-  margin-right: 10vw;
+body,html{
+  margin:20px 50px;
+  background-image: linear-gradient(to right, #F6F5F2,#F0EBE3,#F3D0D7,#FFEFEF);
+  background-color: #f7f7f7;
+  max-height: 100vh;
+  max-width: 100vw;
 }
 
-/* body {
-  transition: all 0.1s ease-in-out;
+*::selection{
+  background-color: black;
+  color: #f7f7f7;
 }
-
-body.transitioning {
-  opacity: 0.5;
-} */
