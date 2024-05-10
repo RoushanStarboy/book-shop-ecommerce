@@ -1,34 +1,90 @@
+body{
+    background-color: whitesmoke;
+}
+
 #all-card{
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    grid-template-rows: repeat(1,1fr);
-    padding-top: 0;
-    margin-top: 0;
-    background-color: rgb(28, 197, 138);
+    background-image: linear-gradient(#EDF1D6, #9DC08B,#bdf6a1,#9DC08B, #EDF1D6);
+    background-color: #9DC08B;
+    /* backdrop-filter: blur(5px); */
     min-width: 100%;
     min-height: 100%;
-    overflow-x: hidden;
+    place-items: center;
+    box-shadow: 0 1 50px (#904406, 0.1);
+    
 }
 
 
 #main-Cards{
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background-color: brown;
+    background-color: #bac08b57;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
     width: 280px;
     height: 300px;
-    padding: 20px;
     margin: 20px;
+    border-radius: 15px;
+    padding:20px
 
 }
 #card-img{
-    height: 200px;
-    width: 200px;
-    border-image: cover;
+    background-color: black;
+    height: 60%;
+    width: 70%;
+    border-radius: 15px;
 }
+
 #card-img img{
     height: 100%;
     width: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+    border-radius: 15px;
+}
+
+#main-Cards #card-name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 80%;
+    height: 20%;
+    margin: 5px;
+    white-space:nowrap;
+}
+
+#card-name h1{
+    font-size: 150%;
+    font-family:'Lucida Sans';
+    font-weight: 600;
+}
+
+#main-Cards #card-details{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height: 15%;
+    width: 90%;
+    background-color: aqua;
+    text-align: center;
+}
+
+#card-details span{
+    font-size: 90%;
+    white-space: wrap;
+}
+#heading-books{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EDF1D6;
+    height: 70px;
+}
+
+#heading-books h1{
+    font-family: "Nunito Sans";
+    font-weight: 800;
 }

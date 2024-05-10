@@ -2,9 +2,34 @@ import React, {useState} from "react";
 import "./navbar.css";
 import icon from "./icon/icon.png";
 import { NavLink } from "react-router-dom";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 function Navbar(){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    
+    useGSAP(()=>{
+        const tl = gsap.timeline()
+        tl.from(".navlogo",{
+            duration:1,
+            y:-50,
+            opacity:0,
+            stagger:0.5
+        })
+        const all = document.querySelectorAll(".navlinks a");
+        tl.from(all,{
+            duration:0.8,
+            y:-50,
+            stagger:0.5,
+            opacity:0
+        })
+        document.querySelectorAll("a").forEach(element => {
+            element.addEventListener("click", (e) => {
+              e.target.style.transition = "all 0.5s ease-in-out";
+            });
+        });
+    });
+
     
     return(
         <>
