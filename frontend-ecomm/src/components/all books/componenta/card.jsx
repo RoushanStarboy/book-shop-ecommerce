@@ -8,12 +8,12 @@ return<>
         <div id="card-img">
             <img src={props.Image} alt="Avatar"/>
         </div>
-        <div>
+        <div id="card-name">
             <h1>{props.Name}</h1>
         </div>
-        <div>
-            <span id="card-details">
-                {props.Email}
+        <div id="card-details">
+            <span>
+                {props.Email}<br/>
                 {props.Phone}
             </span>
         </div>

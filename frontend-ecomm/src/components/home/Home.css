@@ -1,80 +1,112 @@
-body{
-    background-color: transparent;
-}
-.home-container{
+#main-contain{
+    height: 82vh;
+    width: 100%;
+    background-color: salmon;
     display: flex;
-    height: 83.8vh;
-    max-width: 96.5vw;
-    overflow: hidden;
-    position: absolute;
-    flex-direction: column;
-    background-color: transparent;
-}
-#hero1{
-    position: absolute;
-    height: 300px;
-    width: 700px;
-    top:20%;
-    background-color: transparent;
-    
-}
-#hero2{
-    height: 80vh;
-    width: 94vw;
-    display: flex;
-    justify-content: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 50px;
     align-items: center;
-    border-radius: 50px;
-
-}
-
-#heroimg{
-    height: 500px;
-    width: 500px;
-}
-
-#hero1 h1{
-    font-size: 70px;
-}
-
-
-#port{
-    display: flex;
+    background-image: url("https://img.freepik.com/free-photo/wooden-boards-with-shiny-background_1253-22.jpg?w=1060&t=st=1714657899~exp=1714658499~hmac=bd91eed01cc81de2da5efe3ce719f986e08c88ca01a08595d57b265375ddd811");
+    background-size: contain;
     position: relative;
-    width: 200px;
-    height: 60px;
-    border-radius: 50px;
-    border: solid green;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+#main-contain #hero1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 50%;
+    margin-left: 50px;
+}
+
+#hero1 #heading{
+
+    height: 340px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    width: 650px;
+    background-color:aqua;
+
+    display: flex;
     justify-content: center;
     align-items: center;
-    left: 14%;
-    bottom: 5%;
-}
+    flex-direction: column;
 
-#port a{
-    text-decoration: none;
-    cursor:wait;
-    font-size: 16px;
-    font-weight: bold;
-}
-#port:hover{
-    background-color: #512da8;
-}
+    background-color: transparent;
+    border: 15px solid white;
+    border-radius: 50px;
 
-#port:hover a{
-    color: #f7f7f7;
-    font-size: 18px;
-}
 
-#quote-hero{
-    height: 100px;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    }
+    #heading h1{
+        font-weight: 800;
+        font-size:370%;
+        color: white;
+        
+    }
+
+#hero1 #quotes{
+    height: 130px;
     width: 500px;
-    overflow:scroll;
+    margin-bottom: 15px;
+    background-color: azure;
+    text-align: justify;
 }
-#takeitdown{
-    height: 70vh;
-    width: 70vh;
-    display: flex;
-    flex-direction: column-reverse;
+div #quotes > :nth-child(2) {
+    font-weight: 800;
+    text-align: center;
+    color: #40ab3e;
+  }
 
+
+#hero1 #explore{
+    height: 60px;
+    width: 500px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
+#button-ex{
+    height: 100%;
+    width: 185px;
+    background-color: wheat;
+    white-space: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+}
+    #button-ex  a{
+        text-decoration: none;
+        color: black;
+    }
+
+
+/*2nd*/
+
+#main-contain #hero2{
+    height: 98%;
+    width: 40%;
+    background-color: brown;
+    border-radius: inherit;
+    margin: 5px;
+}
+    #video-sec{
+        height: 100%;
+        width: 100%;
+        border-radius: inherit;
+    }
+    #hero2 #video-sec video{
+        height: 100%;
+        min-width: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+    
+    }
