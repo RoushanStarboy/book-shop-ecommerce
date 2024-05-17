@@ -1,5 +1,5 @@
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Contact, Book
 from django.contrib import messages
 import pickle, os
@@ -8,6 +8,7 @@ import pandas as pd
 from django.http import request, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
+from .models import Orders, OrderUpdate
 
 
 # ... loading rating_matrix, similarity_scores, and popular_df ...
@@ -91,6 +92,50 @@ def search_and_recommend(request):
 
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
+def checkout(request):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Login & Try again")
+        return redirect('login.html')
+
+    if request.method == 'POST':
+        items = request.POST.get('items', '')
+        name = request.POST.get('name', '')
+        amount = request.POST.get('amt')
+        email = request.POST.get('email', '')
+        address1 = request.POST.get('address1', '')
+        city = request.POST.get('city', '')
+        state = request.POST.get('state', '')
+        zip_code = request.POST.get('zip_code', '')
+        phone = request.POST.get('phone', '')
+        Order = Orders(items = items, name = name, amount = amount, email = email, address1 = address1, city = city, state = state, zip_code = zip_code, phone = phone)
+        print(amount)
+        Order.save()
+        update = OrderUpdate(order_id=Order.order_id,update_desc="the order has been placed")
+        update.save()
+        thank = True
+
+def profile(request):
+    if not request.user.is_authenticated:
+        messages.warning(request,"Login & Try Again")
+        return redirect('login.html')
+    currentuser=request.user.username
+    items=Orders.objects.filter(email=currentuser)
+    rid=""
+    for i in items:
+        print(i.oid)
+        # print(i.order_id)
+        myid=i.oid
+        rid=myid.replace("store","")
+        print(rid)
+    status=OrderUpdate.objects.filter(order_id=int(rid))
+    for j in status:
+        print(j.update_desc)
+
+
+    context ={"items":items,"status":status}
+    # print(currentuser)
+    return render(request,"profile.html",context)
 
 def contact(request):
     if request.method == "POST":
