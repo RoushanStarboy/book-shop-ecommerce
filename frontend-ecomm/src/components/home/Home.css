@@ -1,112 +1,148 @@
-#main-contain{
-    height: 82vh;
-    width: 100%;
-    background-color: salmon;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-radius: 50px;
-    align-items: center;
-    background-image: url("https://img.freepik.com/free-photo/wooden-boards-with-shiny-background_1253-22.jpg?w=1060&t=st=1714657899~exp=1714658499~hmac=bd91eed01cc81de2da5efe3ce719f986e08c88ca01a08595d57b265375ddd811");
-    background-size: contain;
+main #main-page{
+    min-height: calc(100vh - 100px);
+    width: auto;
+}
+#main-container{
+    height: calc(100vh - 100px);
+    width: auto;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
-
-#main-contain #hero1{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+#main-container video{
+    position: absolute;
+    z-index: 1;
     height: 100%;
-    width: 50%;
-    margin-left: 50px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50px;
 }
 
-#hero1 #heading{
 
-    height: 340px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    width: 650px;
-    background-color:aqua;
+article#article{
+    position: absolute;
+    z-index: 2;
+    color: white;
+    font-family: Nunito Sans;
+    font-weight: bolder;
 
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-
-    background-color: transparent;
-    border: 15px solid white;
-    border-radius: 50px;
-
-
-    font-family: "Oswald", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 300;
-    font-style: normal;
-    }
-    #heading h1{
-        font-weight: 800;
-        font-size:370%;
-        color: white;
-        
-    }
-
-#hero1 #quotes{
-    height: 130px;
-    width: 500px;
-    margin-bottom: 15px;
-    background-color: azure;
-    text-align: justify;
-}
-div #quotes > :nth-child(2) {
-    font-weight: 800;
     text-align: center;
-    color: #40ab3e;
-  }
 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
 
-#hero1 #explore{
-    height: 60px;
-    width: 500px;
-    display: inline-flex;
+#heading h1:first-child{
+    font-size: 70px;  
+}
+
+#heading h1:hover{
+    color: #1376b4d3;
+    transition: all 0.9s ease-out;
+}
+
+#heading h1{
+    font-size: 40px;
+    margin-bottom: 0.1em;
+    line-height: 0.6;
+    text-shadow: 0 0 10px #1376b4d3,
+    2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+#heading{
+    padding: 20px;
+    height: 20vh;
+    width: auto;
+    overflow: hidden;
+}
+
+#quotes{
+    margin-top: 20px;
+    overflow-y: hidden;
+    white-space:wrap;
+    background-color: #3b6f6f87;
+    height:15vh;
+    width: 45vw;
+    padding: 2vh;
+    border-radius: 50px;
+}
+#quotes:hover{
+    overflow-y: scroll;
+    
+}
+
+#explore{
+    margin-top: 5vh;
+    padding-bottom: 40px;
+    padding: 10px;
+    height: 4vh;
+    width: 100%;
+    text-align: center;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 #button-ex{
-    height: 100%;
-    width: 185px;
-    background-color: wheat;
-    white-space: nowrap;
+    height: 7vh;
+    width: 30vh;
+    background-color: #40A578;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-}
-    #button-ex  a{
-        text-decoration: none;
-        color: black;
-    }
-
-
-/*2nd*/
-
-#main-contain #hero2{
-    height: 98%;
-    width: 40%;
-    background-color: brown;
-    border-radius: inherit;
-    margin: 5px;
-}
-    #video-sec{
-        height: 100%;
-        width: 100%;
-        border-radius: inherit;
-    }
-    #hero2 #video-sec video{
-        height: 100%;
-        min-width: 100%;
-        object-fit: cover;
-        border-radius: inherit;
+    padding: 35px;
+    white-space:no-wrap;
     
-    }
+}
+
+
+#button-ex span{
+    text-decoration: none;
+    color: #E6FF94;
+    font-weight: 800;
+}
+
+
+#searchbar {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    background-color: white;
+    border-radius: 50px;
+
+}
+
+#searchOn {
+    position: absolute;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+  }
+
+  #closebtn{
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    font-size: 100px;
+  }
+
+  #searchOn input{
+    height: 5vh;
+    width: 40vw;
+    padding: 5px;
+    background-color: #4242987f;
+    
+  }
+  #searchOn button{
+    height: 5vh;
+    width: 5vw;
+    margin-left: 20px;
+    border: none;
+    background-color: transparent;
+  }

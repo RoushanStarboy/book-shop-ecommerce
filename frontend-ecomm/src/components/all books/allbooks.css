@@ -5,8 +5,8 @@ body{
 #all-card{
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    background-image: linear-gradient(#EDF1D6, #9DC08B,#bdf6a1,#9DC08B, #EDF1D6);
-    background-color: #9DC08B;
+    /* background-image: linear-gradient(#EDF1D6, #9DC08B,#bdf6a1,#9DC08B, #EDF1D6); */
+    background-color: #f7f7f7;
     /* backdrop-filter: blur(5px); */
     min-width: 100%;
     min-height: 100%;
@@ -87,4 +87,10 @@ body{
 #heading-books h1{
     font-family: "Nunito Sans";
     font-weight: 800;
+}
+
+
+#recom-card{
+    display: flex;
+    justify-content: space-around;
 }

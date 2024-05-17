@@ -1,0 +1,45 @@
+#section1{
+    min-height: 100vh;
+    width: 100%;
+    background-color: #f7f7f7;
+}
+
+#sc1ar1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 15vh;
+}
+
+#sc1ar1 h1{
+    font-size: 3rem;
+}
+
+#as1{
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    top: 15vh;
+}
+#as1 #as1p1{
+    height: 2px;
+}
+#as1 #as1p2{
+    height: 10px;
+}
+#as1 #as1p1,#as1p2 p{
+    font-size: small;
+}
+
+#sc1ar2 hr{
+    position: relative;
+    top:15.5vh;
+   height: 5px;
+   color: black;
+}
+
+#recom #p1{
+    position: relative;
+    top: 20vh;
+}

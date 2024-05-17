@@ -1,0 +1,119 @@
+main #total-footer{
+    height: 30vh;
+    width: auto;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px dashed black;
+}
+#total-footer > *{
+    color:black;
+}
+.footerSec{
+    height: 75%;
+    width: 25%;
+}
+
+#footerSec3{
+    text-align: end;
+    padding: 10px;
+}
+#footerSec3:hover{
+    cursor: url('./img/deer.png'), auto;
+}
+#footerSec1{
+    font-weight: 600;
+    cursor: pointer;
+    
+}
+
+
+#footerSec2{
+    text-align: center;
+    cursor:grab;
+}
+
+
+.mainlogo span{
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 70px;
+  }
+  .secondlogo span{
+    font-family: "Dancing Script", cursive;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 70px;
+  }
+
+
+#footerSec1 li:nth-child(1):hover{
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path stroke="%23000" d="M0 5h2c1 0 1-2 2-2s1 2 2 2 1-2 2-2 1 2 2 2h1"/></svg>');
+    background-repeat: repeat-x;
+    background-size: 10px 5px;
+    background-position: 0 100%;
+    padding-bottom: 5px;
+    color: #2c1f7b;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: url('./img/facebook.png'), auto;
+    transition: all 0.3s ease-out;
+
+}
+
+#footerSec1 li:nth-child(2):hover{
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path stroke="%23000" d="M0 5h2c1 0 1-2 2-2s1 2 2 2 1-2 2-2 1 2 2 2h1"/></svg>');
+    background-repeat: repeat-x;
+    background-size: 10px 5px;
+    background-position: 0 100%;
+    padding-bottom: 5px;
+    color: #2c1f7b;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: url('./img/instagram.png'), auto;
+    transition: all 0.3s ease-out;
+    
+
+}
+#footerSec1 li:nth-child(3):hover{
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path stroke="%23000" d="M0 5h2c1 0 1-2 2-2s1 2 2 2 1-2 2-2 1 2 2 2h1"/></svg>');
+    background-repeat: repeat-x;
+    background-size: 10px 5px;
+    background-position: 0 100%;
+    padding-bottom: 5px;
+    color: #2c1f7b;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: url('./img/twitter.png'), auto;
+    transition: all 0.3s ease-out;  
+
+}
+#footerSec1 li:nth-child(4):hover{
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path stroke="%23000" d="M0 5h2c1 0 1-2 2-2s1 2 2 2 1-2 2-2 1 2 2 2h1"/></svg>');
+    background-repeat: repeat-x;
+    background-size: 10px 5px;
+    background-position: 0 100%;
+    padding-bottom: 5px;
+    color: #2c1f7b;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: url('./img/linkedin.png'), auto;
+    transition: all 0.3s ease-out;   
+
+}
+#footerSec1 li:nth-child(5):hover{
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="none" viewBox="0 0 10 10"><path stroke="%23000" d="M0 5h2c1 0 1-2 2-2s1 2 2 2 1-2 2-2 1 2 2 2h1"/></svg>');
+    background-repeat: repeat-x;
+    background-size: 10px 5px;
+    background-position: 0 100%;
+    padding-bottom: 5px;
+    color: #2c1f7b;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: url('./img/youtube.png'), auto;
+    transition: all 0.3s ease-out; 
+
+}

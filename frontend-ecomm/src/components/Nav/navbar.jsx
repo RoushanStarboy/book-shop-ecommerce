@@ -1,26 +1,35 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "./navbar.css";
-import icon from "./icon/icon.png";
 import { NavLink } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 function Navbar(){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    
+    const [mainlogo,setMainLogoHere] = useState('True');
+
+    useEffect(()=>{
+        const interval = setInterval(()=>{
+            setMainLogoHere(something => !something);
+        },3000);
+
+        return ()=> clearInterval(interval);
+    },[]);
+
+
+
     useGSAP(()=>{
         const tl = gsap.timeline()
-        tl.from(".navlogo",{
-            duration:1,
-            y:-50,
+        tl.from(".navPart1 span",{
+            duration:0.8,
+            y:-100,
             opacity:0,
             stagger:0.5
         })
         const all = document.querySelectorAll(".navlinks a");
         tl.from(all,{
-            duration:0.8,
+            duration:0.5,
             y:-50,
-            stagger:0.5,
             opacity:0
         })
         document.querySelectorAll("a").forEach(element => {
@@ -35,7 +44,12 @@ function Navbar(){
         <>
             <div className="nav">
                 <div className="navPart1">
-                    <img className="navlogo" src={icon} alt="Logo"/>
+                <div className="mainlogoNav Navlogo" id="something1" style={{display:mainlogo?"block":"none"}}>
+                    <span>Cadymart</span>
+                </div>
+                    <div className="secondlogoNav Navlogo" id="something2" style={{display:mainlogo?"none":"block"}}>
+                        <span>C M</span>
+                </div>
                 </div>
                 <div className="navPart2">
                     <div className="navlinks">

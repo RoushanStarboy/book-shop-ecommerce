@@ -1,10 +1,17 @@
-body,html{
-  background-color: #EDF1D6;
-  margin-left: 50px;
-  margin-right: 50px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-*::selection{
+html,body {
+height: 100%;
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: #f7f7f7;
+}
+
+*::selection {
   background-color: black;
   color: #f7f7f7;
 }

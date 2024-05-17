@@ -1,0 +1,142 @@
+#section2{
+    height: 100vh;
+    width: auto;
+    background-color: #f7f7f7;
+    position: relative;
+}
+#section2 #sc2sc1p1{
+    height: 40vh;
+    width: 50vw;
+    font-size: 50px;
+    text-transform: uppercase;
+    display: flex;
+    float: left;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    position: absolute;
+    top: 5vh;
+}
+
+#section2 #sc2sc2p1{
+    height: 40vh;
+    width: 40vw;
+    float: right;
+    position: relative;
+    top: 5vh;
+    font-family:"sans-serif";
+    font-style:oblique;
+    padding: 50px;
+}
+
+#section2 #sc2sc2p1 p{
+    font-size: 18px;
+}
+
+#recom-link{
+    display: block;
+    text-align: center;
+    font-weight: 900;
+    
+}
+
+#recom-link hr {
+    height: 2px;
+    width: 150px;
+    background-color: black;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    left: 35%;
+}
+
+
+#sc2sc3p1{
+    height: 30vh;
+    width: 50vw;
+    position: absolute;
+    top: 50%;
+    left: 20vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    border: 2px solid #064163e5;
+    font-weight: 800;
+    font-size: larger;
+
+}
+
+.fixingMessage{
+    background-color: black;
+    color: white;
+    height: 10vh;
+    width: 15vw;
+    position: absolute;
+    top: 80%;
+    left: 36vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 50px;
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#sc2sc3p2 {
+    height: 40vh;
+    width: 25vw;
+    position: absolute;
+    top: 55%;
+}
+
+#sec2form{
+    height: 100%;
+    width: 100%;
+    border-radius: 50px;
+    position: relative;
+    padding-left: 10px;
+}
+
+#sec2form input[name="message"]{
+    height: 15vh;
+
+}
+#sec2form > *{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#sec2form input{
+    border-radius: 20px;
+    width: 90%;
+    padding-left: 5px;
+}
+
+#sec2form button[type="submit"]{
+    width: 5vw;
+    background-color: black;
+    color:white;
+    margin-top: 5px;
+    border-radius: 10px;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+    left: 40%;
+}
+
+#messageClose{
+    position: absolute;
+    top: 2%;
+    border-radius: 40%;
+    height: 3vh;
+    width: 2vw;
+    right: 2%;
+}
