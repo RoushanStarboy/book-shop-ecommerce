@@ -31,10 +31,10 @@ function Footer(){
             </section>
             <section className="footerSec" id="footerSec2">
             <div className="mainlogo" style={{display:mainlogohere?"block":"none"}}>
-                    <span>Cadymart</span>
+                    <span>BookNest.In</span>
                 </div>
             <div className="secondlogo" style={{display:mainlogohere?"none":"block"}}>
-                <span>C M</span>
+                <span>B N</span>
             </div>
             </section>
             <section className="footerSec" id="footerSec3">

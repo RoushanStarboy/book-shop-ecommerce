@@ -19,6 +19,8 @@ function allCrds(props){
 function Section1(){
 
     const [recomPop, setRecomPop] = useState([]);
+    const [curentPage, setCurrentPage] = useState(1);
+    const perPage = 5;
 
         useEffect(()=>{
             const allrecom = async () => {
@@ -36,6 +38,26 @@ function Section1(){
               allrecom();
             
         },[]);
+
+
+            
+        const indexOfLastBook = curentPage* perPage;
+        const indexOfFirstBook = indexOfLastBook - perPage;
+        const indexOfCureentBook = recomPop.slice(indexOfFirstBook,indexOfLastBook);
+
+
+        const previousPage = ()=>{
+            if(curentPage > 1){
+                setCurrentPage(curentPage-1);
+            }
+        }
+
+        const nextPage = ()=>{
+            if(curentPage*perPage < recomPop.length){
+                setCurrentPage(curentPage+1);
+            }
+        }
+
 
 
 
@@ -62,11 +84,13 @@ function Section1(){
                 </article>
 
                 <article id="sc1ar3">
-                    <div id="recom">
+                    
                         <div id="p1">
-                        {recomPop.map(allCrds)}
+                        <button onClick={previousPage} disabled={curentPage === 1}>&lt;</button>
+                        {indexOfCureentBook.map(allCrds)}
+                        <button onClick={nextPage} disabled={curentPage * perPage >= recomPop.length}>&gt;</button>
                         </div>
-                    </div>
+                    
                 </article>
          </main>
     );

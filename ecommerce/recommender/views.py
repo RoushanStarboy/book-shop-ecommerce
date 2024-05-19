@@ -9,6 +9,7 @@ from django.http import request, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .models import Orders, OrderUpdate
+from django.core.paginator import Paginator
 
 
 # ... loading rating_matrix, similarity_scores, and popular_df ...
@@ -17,22 +18,40 @@ rating_matrix = pd.read_pickle(open(os.path.join('data', 'rating_matrix.pkl'), '
 similarity_scores = pd.read_pickle(open(os.path.join('data', 'similarity_scores.pkl'), 'rb'))
 books = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
 
+# Loading the data from the pickle file
+books_df = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def get_books_data(request):
+    try:
+        books_df = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
+        books_data = books_df.to_dict(orient='records')
+        page_number = int(request.GET.get('page', 1))
+        page_size = int(request.GET.get('page_size', 10))
+
+        paginator = Paginator(books_data, page_size)
+        page_obj = paginator.get_page(page_number)
+
+        response_data = {
+            'books': list(page_obj),
+            'page_number': page_obj.number,
+            'page_size': page_size,
+            'total_pages': paginator.num_pages,
+            'total_books': paginator.count
+        }
+
+        return JsonResponse(response_data)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
 def home(request):
     """It fetches top 50 popular books from the database."""
 
     books = Book.objects.all()
     context = {'books': books}
     return render(request, 'base.html', context)
-
-def rando(request):
-    thisdict = {
-        "Name": "Michel",
-        "occ": "Singer",
-        "year": 1964,
-        "image": 'https://media.gettyimages.com/id/3231394/photo/portrait-of-american-pop-star-michael-jackson-wearing-a-red-leather-jacket-at-the-opening-of-the.jpg?s=612x612&w=gi&k=20&c=bfd6ucY0zAX_vlc_py1AZhD8ErVfjlWMqjBB9CQQDeE='
-    }
-    return JsonResponse(thisdict)
-
 
 def recommend_popular(request, num_recommendations=20):
     try:

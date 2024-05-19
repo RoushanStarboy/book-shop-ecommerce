@@ -1,25 +1,26 @@
 import React from 'react';
-
+import "./section1.css";
 function Sec1Card(props){
     return <>
         <div id='card-sec1'>
             <div>
                 <div id='sec1cardImg'>
+
                     <img src={props.image} alt='Books'/>
                 </div>
                 <div id='sec1cardtitle'>
-                    <p>{props.title} </p>
+                    {/* <p>{props.title} </p> */}
                 </div>
                 <div id='sec1cardauthor'>
-                    <p>{props.author} </p>
+                    {/* <p>{props.author} </p> */}
                 </div>
             </div>
             <div>
                 <div id='sec1cardrating'>
-                <p>{props.rating}</p>
+                {/* <p>{props.rating}</p> */}
                 </div>
                 <div id='sec1cardprice'>
-                <p>{props.price}</p>
+                {/* <p>{props.price}</p> */}
                 </div>
             </div>
         </div>

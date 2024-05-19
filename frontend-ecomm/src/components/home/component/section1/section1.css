@@ -39,11 +39,54 @@
    color: black;
 }
 
-#recom #p1{
+#p1{
     position: relative;
     top: 20vh;
-}
-#recom{
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+}
+
+#card-sec1{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 230px;
+    min-width: 230px;
+    background-color: black;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+}
+#card-sec1:nth-child(5){
+    margin-left: 0px;
+}
+
+#sec1cardImg{
+    position: relative;
+    height: 200px;
+    width: 200px;
+    background-color: blue;
+    border-radius: 20px;
+}
+
+#sec1cardImg img{
+    height: 100%;
+    width: 100%;
+    object-fit:fill;
+    border-radius: 20px;
+}
+
+#p1 button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    height: 50px;
+    width: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+    font-weight: 800;
+    color: #1166c2;
 }

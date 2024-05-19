@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from 'axios';  // Import axios for HTTP requests
+import axios from 'axios';  //axios for HTTP requests (no need (lol))
 import "./LoginPage.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faGooglePlusG, faFacebookF, faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
@@ -30,6 +30,7 @@ function LoginPage() {
                 }
             });
             setMessage(response.data.success);   // Display success message
+            setIsActive(false); // Reset to login state after successful signup
         } catch (error) {
             if (error.response) {
                 // Request made and server responded with a status code out of the range of 2xx
@@ -75,28 +76,25 @@ function LoginPage() {
     };
 
     const handleRegisterClick = () => {
-        setIsActive(!isActive);
+        setIsActive(true);
     };
 
     useEffect(() => {
         const registerBtn = document.getElementById('register');
         const loginBtn = document.getElementById('login');
-        
-        const handleRegisterClick = () => {
-            setIsActive(!isActive); // Toggle isActive state
-        };
-        
+
         registerBtn.addEventListener('click', handleRegisterClick);
         loginBtn.addEventListener('click', handleLoginClick);
-        
+
         // Cleanup event listeners
         return () => {
             registerBtn.removeEventListener('click', handleRegisterClick);
+            loginBtn.removeEventListener('click', handleLoginClick);
         };
-    }, [isActive]);
+    }, []);
 
     return (
-<div className={`container ${isActive ? 'active' : ''}`} id="container">
+        <div className={`container ${isActive ? 'active' : ''}`} id="container">
             <div className={`form-container sign-up`}>
                 <form onSubmit={handleSignup}>
                     <h1>Create Account</h1>
@@ -149,6 +147,5 @@ function LoginPage() {
         </div>
     );
 }
-
 
 export default LoginPage;

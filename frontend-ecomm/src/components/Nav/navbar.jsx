@@ -45,10 +45,10 @@ function Navbar(){
             <div className="nav">
                 <div className="navPart1">
                 <div className="mainlogoNav Navlogo" id="something1" style={{display:mainlogo?"block":"none"}}>
-                    <span>Cadymart</span>
+                    <span>BookNest.In</span>
                 </div>
                     <div className="secondlogoNav Navlogo" id="something2" style={{display:mainlogo?"none":"block"}}>
-                        <span>C M</span>
+                        <span>B N</span>
                 </div>
                 </div>
                 <div className="navPart2">
