@@ -1,13 +1,81 @@
 import React, { useEffect, useState } from "react";
-import "./LoginPage.css"; // Change import statement for styles
+import axios from 'axios';  // Import axios for HTTP requests
+import "./LoginPage.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; 
 import { faGooglePlusG, faFacebookF, faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
 function LoginPage() {
     const [isActive, setIsActive] = useState(false);
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        pass1: '',
+        pass2: ''
+    }); // setting up form
+
+    const [message, setMessage] = useState('');  // State for feedback messages
+
+    // Handle input changes
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+
+    // Handle signup form submission
+    const handleSignup = async (e) => {
+        e.preventDefault(); // Prevent default form submission
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/authentication/signup/', formData, {
+                headers: {
+                    'Content-Type': 'application/json' // Set content type to JSON
+                }
+            });
+            setMessage(response.data.success);   // Display success message
+        } catch (error) {
+            if (error.response) {
+                // Request made and server responded with a status code out of the range of 2xx
+                setMessage(error.response.data.error);
+            } else if (error.request) {
+                // The request was made but no response was received
+                setMessage('No response received from the server. Please try again.');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                setMessage('An error occurred. Please try again.');
+            }
+        }
+    };
+
+    // Handle login form submission
+    const handleLogIn = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://127.0.0.1:8000/authentication/login/', formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            setMessage(response.data.success);
+            // Redirect to homepage
+            window.location.href = '/';
+        } catch (error) {
+            if (error.response) {
+                // Request made and server responded with a status code out of the range of 2xx
+                setMessage(error.response.data.error);
+            } else if (error.request) {
+                // The request was made but no response was received
+                setMessage('No response received from the server. Please try again.');
+            } else {
+                // Something happened in setting up the request that triggered an Error
+                setMessage('An error occurred. Please try again.');
+            }
+        }
+    };
 
     const handleLoginClick = () => {
         setIsActive(false);
+    };
+
+    const handleRegisterClick = () => {
+        setIsActive(!isActive);
     };
 
     useEffect(() => {
@@ -28,9 +96,9 @@ function LoginPage() {
     }, [isActive]);
 
     return (
-        <div className={`container ${isActive ? 'active' : ''}`} id="container">
+<div className={`container ${isActive ? 'active' : ''}`} id="container">
             <div className={`form-container sign-up`}>
-                <form>
+                <form onSubmit={handleSignup}>
                     <h1>Create Account</h1>
                     <div className="social-icons">
                         <a href="/" className="icon"><FontAwesomeIcon icon={faGooglePlusG} /></a>
@@ -39,14 +107,16 @@ function LoginPage() {
                         <a href="/" className="icon"><FontAwesomeIcon icon={faLinkedinIn} /></a>
                     </div>
                     <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input type="text" placeholder="Name" name="name" onChange={handleChange} />
+                    <input type="email" placeholder="Email" name="email" onChange={handleChange} />
+                    <input type="password" placeholder="Password" name="pass1" onChange={handleChange} />
+                    <input type="password" placeholder="Confirm Password" name="pass2" onChange={handleChange} />
                     <button>Sign Up</button>
                 </form>
             </div>
+            {message && <p>{message}</p>} {/* display message */}
             <div className={`form-container sign-in`}>
-                <form>
+                <form onSubmit={handleLogIn}>
                     <h1>Sign In</h1>
                     <div className="social-icons">
                         <a href="/" className="icon"><FontAwesomeIcon icon={faGooglePlusG} /></a>
@@ -55,12 +125,13 @@ function LoginPage() {
                         <a href="/" className="icon"><FontAwesomeIcon icon={faLinkedinIn} /></a>
                     </div>
                     <span>or use your email password</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
+                    <input type="text" placeholder="Name" name="name" onChange={handleChange} />  {/* Changed from email to name */}
+                    <input type="password" placeholder="Password" name="pass1" onChange={handleChange} />
                     <a href="/">Forget Your Password?</a>
                     <button>Sign In</button>
                 </form>
             </div>
+            {message && <p>{message}</p>}
             <div className="toggle-container">
                 <div className="toggle">
                     <div className={`toggle-panel toggle-left`}>
@@ -71,12 +142,13 @@ function LoginPage() {
                     <div className={`toggle-panel toggle-right`}>
                         <h1>Hello!</h1>
                         <p>Register with your personal details to use all of site features</p>
-                        <button className="hidden" id="register">Sign Up</button>
+                        <button className="hidden" id="register" onClick={handleRegisterClick}>Sign Up</button>
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+
 
 export default LoginPage;

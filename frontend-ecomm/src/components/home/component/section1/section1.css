@@ -43,3 +43,7 @@
     position: relative;
     top: 20vh;
 }
+#recom{
+    display: flex;
+    flex-direction: row;
+}

@@ -51,15 +51,17 @@ body{
     justify-content: center;
     background-color: white;
     width: 80%;
-    height: 20%;
+    min-height: 20%;
     margin: 5px;
     white-space:nowrap;
+    text-align: center;
 }
 
 #card-name h1{
-    font-size: 150%;
+    font-size: 1em;
     font-family:'Lucida Sans';
     font-weight: 600;
+    white-space: wrap;
 }
 
 #main-Cards #card-details{

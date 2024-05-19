@@ -7,7 +7,7 @@ function Aboutus() {
         // function to fetch and read the text file
         const fetchTextFile = async () => {
             try {
-                const response = await fetch('');
+                const response = await fetch('https://baconipsum.com/api/?callback=?');
                 const text = await response.text(); 
                 setFileContent(text);
             } catch (error) {
@@ -21,7 +21,7 @@ function Aboutus() {
         <>
             <h1>About Us</h1>
             {console.log(fileContent)}
-            <pre>{fileContent}</pre>
+            {fileContent}
         </>
     );
 }

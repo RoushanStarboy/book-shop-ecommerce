@@ -24,11 +24,37 @@ def home(request):
     context = {'books': books}
     return render(request, 'base.html', context)
 
-def recommend_popular(num_recommendations=10):
+def rando(request):
+    thisdict = {
+        "Name": "Michel",
+        "occ": "Singer",
+        "year": 1964,
+        "image": 'https://media.gettyimages.com/id/3231394/photo/portrait-of-american-pop-star-michael-jackson-wearing-a-red-leather-jacket-at-the-opening-of-the.jpg?s=612x612&w=gi&k=20&c=bfd6ucY0zAX_vlc_py1AZhD8ErVfjlWMqjBB9CQQDeE='
+    }
+    return JsonResponse(thisdict)
 
-    top_books = popular_df.sort_values('avg_rating', ascending=False).head(num_recommendations)
-    top_book_ids = top_books['Book-Title'].tolist()
-    return top_book_ids
+
+def recommend_popular(request, num_recommendations=20):
+    try:
+        top_books = popular_df.sort_values('avg_rating', ascending=True).head(num_recommendations)
+        recommendations = []
+        nums = 0
+        for _, row in top_books.iterrows():
+            item = {
+                'id' : nums,                    # added for no reason (Still )
+                'title': row['Book-Title'] if 'Book-Title' in row else 'Not Available',         # handled here <Look Here>
+                'author': row['Book-Author'] if 'Book-Author' in row else 'Not Available',      # handled here
+                'image': row['Image-URL-M'] if 'Image-URL-M' in row else 'Not Available',
+                'rating': row['avg_rating'] if 'avg_rating' in row else 'Not Available',            # handled here
+                'price': row['price'] if 'price' in row else 'Not Available'                            # Defaulting to 'Not Available' if price is missing
+            }
+            recommendations.append(item)
+            nums += 1
+        return JsonResponse({'top_books': recommendations})
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+
 
 def recommend_collaborative(book_name, num_recommendations=10):
     # Collaborative recommendation goes logic here...

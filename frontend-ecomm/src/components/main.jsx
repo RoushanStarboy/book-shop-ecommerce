@@ -17,13 +17,12 @@ function Main() {
     <><main>
     <Navbar/>
     <Routes>
-      <Route path="/" element={<><HomePage /> </>} />
+      <Route path="/" element={<><HomePage /> <Footer/></>} />
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/allbooks" element={<AllBooks/>}/>
       <Route path="/about-us" element={<Aboutus/>}/>
       <Route path="/cart" element={<Cart/>}/>
     </Routes>
-    <Footer/>
     </main></>
   );
 }
