@@ -25,23 +25,18 @@ class Contact(models.Model):
         return self.name
 
 
-class Orders(models.Model):
+class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
-    items =  models.CharField(max_length=5000)
-    amount = models.IntegerField(default=0)
-    name = models.CharField(max_length=90)
-    email = models.CharField(max_length=90)
-    address1 = models.CharField(max_length=200)
-    city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
-    zip_code = models.CharField(max_length=100)
-    oid=models.CharField(max_length=150,blank=True)
-    amountpaid=models.CharField(max_length=500,blank=True,null=True)
-    paymentstatus=models.CharField(max_length=20,blank=True)
-    phone = models.CharField(max_length=100,default="")
+    customer_email = models.EmailField(max_length=90)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    amount = models.IntegerField()
+    stripe_payment_intent = models.CharField(max_length=200)
+    has_paid = models.BooleanField(default=False)
+    ordered_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return self.customer_email
 
 
 class OrderUpdate(models.Model):
