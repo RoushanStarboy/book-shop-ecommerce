@@ -1,0 +1,9 @@
+/* styles.css */
+.fixed-button {
+    position: fixed;  /* Fixed position */
+    right: 2%;         /* Align to the right of the screen */
+    top: 50%;         /* Align vertically in the middle */
+    transform: translateY(-50%); /* Center the button */
+    z-index: 1000;    /* Ensure it's on top of other elements */
+  }
+  

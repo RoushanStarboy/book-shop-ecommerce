@@ -1,0 +1,40 @@
+#OrderSec{
+    display: flex;
+    height: calc(100vh - 100px);
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+#OrdrSec1{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+#OrdrSec2{
+    height: 100%;
+    width: 30%;
+    background-color: #644343;
+}
+
+
+
+
+#OrdrSec1 #ordr1,#ordr2,#ordr3,#ordr4,#ordr5{
+    padding: 10px;
+    min-height: 10%;
+    width: 100%;
+    background-color: rgb(95, 145, 188);
+    color: aliceblue;
+}
+
+#OrdrSec1#ordr2{
+    height: max-content;
+}
+#OrdrSec1 #ordr4{
+    height: max-content;
+}

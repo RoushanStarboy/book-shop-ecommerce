@@ -21,7 +21,7 @@ import stripe
 popular_df = pd.read_pickle(open(os.path.join('data', 'popular_df.pkl'), 'rb'))
 rating_matrix = pd.read_pickle(open(os.path.join('data', 'rating_matrix.pkl'), 'rb'))
 similarity_scores = pd.read_pickle(open(os.path.join('data', 'similarity_scores.pkl'), 'rb'))
-books = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
+
 
 # Loading the data from the pickle file
 books_df = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
@@ -49,6 +49,7 @@ def get_books_data(request):
         return JsonResponse(response_data)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 
 def home(request):
@@ -87,7 +88,7 @@ def recommend_collaborative(book_name, num_recommendations=10):
     recommendations = []
     for i in similar_items:
         item = {}
-        temp_df = books[books['Book-Title'] == rating_matrix.index[i[0]]].drop_duplicates('Book-Title')
+        temp_df = books_df[books_df['Book-Title'] == rating_matrix.index[i[0]]].drop_duplicates('Book-Title')
         item['title'] = temp_df['Book-Title'].values[0]
         item['author'] = temp_df['Book-Author'].values[0]
         item['image_url'] = temp_df['Image-URL-M'].values[0]
@@ -123,7 +124,7 @@ def search_and_recommend(request):
             return JsonResponse({'error': 'Book title is required'}, status=400)
 
         # Fetching the book details from the database
-        book_query = books[books['Book-Title'].str.contains(book_title, case=False)]
+        book_query = books_df[books_df['Book-Title'].str.contains(book_title, case=False)]
         if book_query.empty:
             return JsonResponse({'error': 'No book found'}, status=404)
 

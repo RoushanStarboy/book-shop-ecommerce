@@ -1,18 +1,9 @@
 import React,{useEffect, useState}  from "react";
+import Logo from "../logo/logo";
 import "./footer.css";
 
 function Footer(){
 
-    const [mainlogohere, setMainLogoHere] = useState("true");
-
-
-    useEffect(()=>{
-            const interval = setInterval(()=>{
-                setMainLogoHere(sonething => !sonething);
-            },1000);
-
-            return () =>  clearInterval(interval);
-    },[]);
 
     return(
         <main id="total-footer">
@@ -30,12 +21,9 @@ function Footer(){
                     </ul>
             </section>
             <section className="footerSec" id="footerSec2">
-            <div className="mainlogo" style={{display:mainlogohere?"block":"none"}}>
-                    <span>BookNest.In</span>
+            <div className="mainlogo">
+                    <Logo/>
                 </div>
-            <div className="secondlogo" style={{display:mainlogohere?"none":"block"}}>
-                <span>B N</span>
-            </div>
             </section>
             <section className="footerSec" id="footerSec3">
                 <p>Spacially for You, Dear</p>

@@ -1,0 +1,178 @@
+import React, { useState, useEffect } from "react";
+import "./products.css";
+
+import Recommend_popular from "../../topRecom/recommend_popular";
+import Sec1Card from "../home/component/section1/sec1Card";
+import { NavLink } from "react-router-dom";
+import image from "./assets/image.png";
+import Footer from "../footer/footer";
+
+function allCrds(props) {
+  return (
+    <Sec1Card
+      image={props.image}
+      author={props.author}
+      title={props.title}
+      rating={props.rating}
+      price={props.price}
+    />
+  );
+}
+
+function Product() {
+  const [recomPop, setRecomPop] = useState([]);
+  const [curentPage, setCurrentPage] = useState(1);
+  const perPage = 4;
+
+  useEffect(() => {
+    const allrecom = async () => {
+      try {
+        const data = await Recommend_popular(); // Fetch data
+        if (data.top_books) {
+          // Checking if the 'top_books' key exists
+          setRecomPop(data.top_books); // changing State here <<><><><>>
+        } else {
+          console.error("Data received does not contain 'top_books':", data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      }
+    };
+    allrecom();
+  }, []);
+
+  const indexOfLastBook = curentPage * perPage;
+  const indexOfFirstBook = indexOfLastBook - perPage;
+  const indexOfCureentBook = recomPop.slice(indexOfFirstBook, indexOfLastBook);
+
+  const previousPage = () => {
+    if (curentPage > 1) {
+      setCurrentPage(curentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (curentPage * perPage < recomPop.length) {
+      setCurrentPage(curentPage + 1);
+    }
+  };
+
+  return (
+    <>
+      <main id="productPage">
+        <section id="producSection1">
+          <aside id="productAside1">
+            <div id="productImage">
+              <img  style={{borderRadius:"20px"}} src="https://imgs.search.brave.com/OtE2VmWIQ5SRhTAhjzWcuakmx03rTr1FAe8anNkN5pM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pLmRp/c2NvZ3MuY29tLzF5/cWRTb29MQlkzZ1BW/N0ttWEhPTnlKOS1t/M3dod0NSQlBjUG40/NG52QlkvcnM6Zml0/L2c6c20vcTo0MC9o/OjMwMC93OjMwMC9j/ek02THk5a2FYTmpi/MmR6L0xXUmhkR0Zp/WVhObExXbHQvWVdk/bGN5OVNMVEl3TWpJ/dy9NaTB4TlRRNU5q/TTBNVGs1L0xUUTJN/VFV1YW5CbFp3Lmpw/ZWc" alt="product"></img>
+            </div>
+            <div id="Productdetals">
+              <h3> Cosmic Loop</h3>
+              <p>By Rahul Roy</p>
+            </div>
+          </aside>
+
+          <aside id="productAside2">
+            <div id="productPrice">
+              <span style={{fontSize:"1.5rem"}}> <b>Price :</b> 69 ₹</span><br/>
+              <span style={{textDecoration: "line-through"}}>MRP = 69 ₹</span>
+
+            </div>
+
+            <div id="productDeliveryDetailsCard">
+              <p>
+                FREE scheduled delivery as soon as Wednesday, 22 May, 7 AM - 9
+                PM. <a href="/">Details</a>
+              </p>
+              <p style={{}}>
+                <sapn style={{color:"#6be9ff", fontWeight:"600", fontSize:"larger"}}>In stock</sapn><br/>
+                Ships from<br/>
+                BookNest.In 
+                Sold by martPrivate Ltd.<br/>
+                </p>
+            </div>
+
+            <div id="productOffers">
+              <img
+                id="discountLogo"
+                src={image}
+                alt="discount tag"
+                style={{ float: "left", marginLeft: "12px", marginTop: "10px" }}
+              />
+              <p
+                style={{
+                  color: "black",
+                  marginTop: "5px",
+                  marginLeft: "40px",
+                  fontWeight: "600",
+                }}
+              >
+                Offers
+              </p>
+              <div id="offerGrid">
+                <div id="bankOffer">
+                  <p>Bank Offer</p>
+                  <span>
+                    Additional INR 250 Instant Discount on OneCard Credit Card 9
+                    month and above EMI Trxn. Min purchase value ₹1000
+                  </span>
+                </div>
+                <div id="noCostEmi">
+                  <p>No Cost EMI</p>
+                  <span>EMI interest savings on select Credit Cards</span>
+                </div>
+                <div id="Promocode">
+                  <p>Promo Code</p>
+                  <label for="promocode" style={{fontSize:"1.1rem", color:"whitesmoke"}}>Code</label>
+                  <input name="promocode" placeholder="your Code"  style={{height:"30%", width: "100%", backgroundColor:"grey", fontWeight:600, color:"white", marginTop:"5%"}}/>
+                  <button style={{marginTop:"10%", height:"20%", width:"60%",}}>Confirm</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="productTestLogo"></div>
+
+            <div id="productCartAndBuy">
+              <div id="dopdownQuantity">
+                <label for="quantity">Quantity:</label>
+                <select id="quantity" name="quantity">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+              <div id="buy">
+                <NavLink>Buy</NavLink>
+              </div>
+              <div id="addCart">
+                <NavLink> Add To Cart </NavLink>
+              </div>
+            </div>
+          </aside>
+        </section>
+        <section id="producSection2">
+          <button
+            id="uparrow"
+            onClick={previousPage}
+            disabled={curentPage === 1}
+          >
+            &uarr;
+          </button>
+          <aside id="producSection2Recom">
+            {indexOfCureentBook.map(allCrds)}
+          </aside>
+          <button
+            id="downarrow"
+            onClick={nextPage}
+            disabled={curentPage * perPage >= recomPop.length}
+          >
+            &darr;
+          </button>
+        </section>
+      </main>
+      <br/>
+      <Footer/>
+    </>
+  );
+}
+
+export default Product;
