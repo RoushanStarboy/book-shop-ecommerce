@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import { CartContext } from '../../CartContext';
 
 
 
 function Cart(){
-
+    const { cartCount, handleAddToCart, handleRemoveToCart } = useContext(CartContext);
     return<>
-    <h1 style={{display:"flex", position:"absolute",top:"50%",left:"50%", transform: "translate(-50%,-50%)"}}> You Are Poor</h1>
+    <div>
+      <h2>Cart Count: {cartCount}</h2>
+      <button onClick={handleRemoveToCart}>-</button> <button onClick={handleAddToCart}>+</button>
+    </div>
     </>
 
 }

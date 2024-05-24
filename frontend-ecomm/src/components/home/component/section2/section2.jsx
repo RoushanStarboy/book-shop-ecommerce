@@ -37,8 +37,6 @@ function Section2(){
                     <button type="submit">Send</button><button id="messageClose" onClick={closeTheMessage}>X</button>
                 </form>
             </section>
-            <NavLink to='/products'>Get Me here</NavLink> <br/>
-            <NavLink to='/orderpage'>Order</NavLink>
         </main>
     );
 }

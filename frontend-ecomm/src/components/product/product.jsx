@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./products.css";
 
 import Recommend_popular from "../../topRecom/recommend_popular";
@@ -6,6 +6,9 @@ import Sec1Card from "../home/component/section1/sec1Card";
 import { NavLink } from "react-router-dom";
 import image from "./assets/image.png";
 import Footer from "../footer/footer";
+import { height, width } from "@fortawesome/free-brands-svg-icons/fa42Group";
+import { text } from "@fortawesome/fontawesome-svg-core";
+import { CartContext } from '../../CartContext';
 
 function allCrds(props) {
   return (
@@ -23,6 +26,8 @@ function Product() {
   const [recomPop, setRecomPop] = useState([]);
   const [curentPage, setCurrentPage] = useState(1);
   const perPage = 4;
+
+  const { cartCount, handleAddToCart } = useContext(CartContext);
 
   useEffect(() => {
     const allrecom = async () => {
@@ -141,10 +146,11 @@ function Product() {
                 </select>
               </div>
               <div id="buy">
-                <NavLink>Buy</NavLink>
+                <NavLink to="/orderpage">Buy</NavLink>
               </div>
+              <box style={{minHeight:"4%",minWidth:"2%", position:"absolute", backgroundColor:"black",color:"#262682", textAlign:"center", borderRadius:"50%"}}><b>{cartCount}</b></box>
               <div id="addCart">
-                <NavLink> Add To Cart </NavLink>
+                <NavLink onClick={handleAddToCart}> Add To Cart </NavLink>
               </div>
             </div>
           </aside>

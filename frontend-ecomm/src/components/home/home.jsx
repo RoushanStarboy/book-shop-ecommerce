@@ -49,6 +49,12 @@ function Home() {
               </button>
             </form>
           </div>
+          <div style={{height:"50%",width:"80%", display:"flex",position:"relative",top:"40%", left:"10%",gap:"10px"}}>
+            <div style={{height:"70%",width:"25%", backgroundColor:"#B2BEB5",borderRadius:"20px"}}></div>
+            <div style={{height:"70%",width:"25%", backgroundColor:"#B2BEB5",borderRadius:"20px"}}></div>
+            <div style={{height:"70%",width:"25%", backgroundColor:"#B2BEB5",borderRadius:"20px"}}></div>
+            <div style={{height:"70%",width:"25%", backgroundColor:"#B2BEB5",borderRadius:"20px"}}></div>
+          </div>
         </div>
         <section id="page1">
           <article id="article">

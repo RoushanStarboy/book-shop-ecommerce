@@ -214,7 +214,7 @@
   }
   
   #productImage img:hover {
-    transform: scale(1.3); /* Adjust scaling factor as needed */
+    transform: scale(1.); /* Adjust scaling factor as needed */
     cursor: zoom-in; /* Optional: changes the cursor to a magnifying glass */
   }
   

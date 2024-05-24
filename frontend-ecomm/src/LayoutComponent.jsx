@@ -3,13 +3,12 @@ import ButtonComponent from './components/buttonComponent/buttoncomp';
 
 const LayoutComponent = ({ children }) => {
   const handleClick = () => {
-    console.log('Button clicked!');
-    // Implement the action here
+    window.alert("Worked");
   };
 
   return (
     <>
-      <ButtonComponent onClick={handleClick} label="Click Me" />
+      <ButtonComponent onClick={handleClick}/>
       <div>
         {children}  {/* This will render the content of each page */}
       </div>
