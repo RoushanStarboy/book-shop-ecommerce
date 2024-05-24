@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from '../all books/componenta/card';
 import "./allbooks.css";
+import { NavLink } from "react-router-dom";
 
 function AllBooks() {
     const [books, setBooks] = useState([]);
@@ -53,16 +54,22 @@ function AllBooks() {
             <div id="nextPage">
                 <button onClick={nextPage} disabled={currentPage >= totalPages}> Next Page</button>
             </div>
+            <NavLink to= "/products" style={{textDecoration:"none"}}>
             <div id="all-card">
+            
                 {books.map(book => (
+                    
                     <Card
                         key={book.ISBN}
                         Name={book["Book-Title"]}
                         bookAuthor={book["Book-Author"]}
                         Image={book["Image-URL-M"]}
                     />
+                    
                 ))}
+            
             </div>
+            </NavLink>
             <div id="previousPage">
                 <button onClick={previousPage} disabled={currentPage === 1}> Previous Page</button>
             </div>

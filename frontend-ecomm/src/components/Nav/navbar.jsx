@@ -1,20 +1,12 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import "./navbar.css";
 import { NavLink } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import Logo from "../logo/logo";
 
 function Navbar(){
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [mainlogo,setMainLogoHere] = useState('True');
-
-    useEffect(()=>{
-        const interval = setInterval(()=>{
-            setMainLogoHere(something => !something);
-        },3000);
-
-        return ()=> clearInterval(interval);
-    },[]);
 
 
 
@@ -24,7 +16,6 @@ function Navbar(){
             duration:0.8,
             y:-100,
             opacity:0,
-            stagger:0.5
         })
         const all = document.querySelectorAll(".navlinks a");
         tl.from(all,{
@@ -44,11 +35,8 @@ function Navbar(){
         <>
             <div className="nav">
                 <div className="navPart1">
-                <div className="mainlogoNav Navlogo" id="something1" style={{display:mainlogo?"block":"none"}}>
-                    <span>BookNest.In</span>
-                </div>
-                    <div className="secondlogoNav Navlogo" id="something2" style={{display:mainlogo?"none":"block"}}>
-                        <span>B N</span>
+                <div className="mainlogoNav Navlogo" id="something1">
+                    <span><Logo/></span>
                 </div>
                 </div>
                 <div className="navPart2">

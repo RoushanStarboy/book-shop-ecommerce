@@ -58,6 +58,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 30px;
+    padding: 10px;
+
 }
 #card-sec1:nth-child(5){
     margin-left: 0px;
@@ -89,4 +91,120 @@
     border-radius: 10px;
     font-weight: 800;
     color: #1166c2;
+}
+
+
+#hoverMenuOnCard{
+    position: absolute;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    display: flex;
+    border-radius: inherit;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    visibility: hidden;
+}
+
+.blur-overlay{
+    height: 100%;
+    width: 100%;
+    background-color: #4cb44c;
+    border-radius: inherit;
+    filter: blur(5px) drop-shadow(2px 2px 20px #eae0e0f6);
+    visibility: hidden;
+    opacity: 0;
+}
+#sec1cardtitle{
+    min-height: 30%;
+    height: fit-content;
+    width: 100%;
+    background-color: transparent;
+    font-size: larger;
+    font-weight: 800;
+    white-space: wrap;
+    overflow: hidden;
+
+}
+#sec1cardauthor{
+    min-height: 20%;
+    width: 60%;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-weight: 600;
+    font-size: large;
+    border-radius: 20px;
+    opacity: 0.7;
+    color: #7b97b6;
+    border-radius: 20px;
+    background-color: #9e2461;
+    
+}
+#sec1cardauthor p{
+    filter: drop-shadow(50px 50px 50px white);
+}
+
+
+#sec1cardrating{
+    height: 12%;
+    width: 50%;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    margin-top: 1%;
+    border: 1px solid grey;
+    border-radius: 20px;
+    background-color: grey;
+    
+}
+#sec1cardrating #rate{
+    background-color:rgb(91, 87, 87);
+    height: 100%;
+    width:70%;
+    border-radius: inherit;
+    color: #7aa9db;
+}
+#sec1cardrating #point{
+    height: 100%;
+    width: 30%;
+    border-radius: inherit;
+    font-weight: 600;
+}
+
+#card-sec1:hover{
+background-color: #f7f7f7;
+
+}
+#card-sec1:hover .blur-overlay{
+   visibility: visible;
+    opacity: 1;
+    animation: fadeIn 0.6s ease-in-out;
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+#card-sec1:hover #hoverMenuOnCard{
+   visibility: visible;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+#card-sec1:hover #sec1cardImg{
+    display: none;
 }

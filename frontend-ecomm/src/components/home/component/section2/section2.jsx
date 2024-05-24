@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./section2.css";
+import { NavLink } from "react-router-dom";
 function Section2(){
 
         const [message,setMessage] = useState(false);
@@ -19,7 +20,7 @@ function Section2(){
             <p>Step into a world of stories, step out with a purpose. Every book you choose at our bookstore fuels our mission to empower vulnerable women on their path to self-sufficiency. Your literary escape becomes their bridge to a brighter future.
             <br/> <br/>
             Start your own adventure and join us in rewriting their narratives, one page at a time.</p>
-            <span id="recom-link"> Explore Yourself<hr/></span>
+            <NavLink to="/allbooks"><span id="recom-link"> Explore Yourself<hr/> </span> </NavLink>
             </section>
             <section id="sc2sc3p1">
             <p>More than just a bookstore, a community of change. Discover powerful stories and support a cause close to our hearts. Every book you choose empowers vulnerable women to break free from the cycle of disadvantage. Let's build a brighter future, one page at a time.</p>

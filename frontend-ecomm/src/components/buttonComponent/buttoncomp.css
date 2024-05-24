@@ -1,0 +1,46 @@
+/* styles.css */
+#fixed-button {
+    position: fixed;  /* Fixed position */
+    right: 1%;         /* Align to the right of the screen */
+    top: 50%;         /* Align vertically in the middle */
+    transform: translateY(-50%); /* Center the button */
+    z-index: 1000;    /* Ensure it's on top of other elements */
+    background-color: black;
+    min-height: 10%;
+    min-width: 2%;
+    text-align: center;
+    padding: 10px;
+    font-family: 600;
+    color: aliceblue;
+    border-radius: 50%;
+    transition: all 0.3s ease-out;
+
+  }
+  
+    #fixed-button:hover {
+
+    text-align: center;
+    padding: 10px;
+    font-family: 600;
+    color: aliceblue;
+    border-radius: 10px;
+    max-height: 100vh;
+    max-width: 100vw;
+    min-width: 15%;
+  }
+
+  #fixed-button:hover #peak{
+    display: none;
+  }
+
+  #unfoald{
+    display: none;
+    height: 100%;
+    width: 100%;
+  }
+
+
+  #fixed-button:hover  #unfoald{
+    display: block;
+
+  }

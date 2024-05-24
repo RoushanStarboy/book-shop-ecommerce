@@ -8,13 +8,18 @@ import Cart from './cart/cart';
 import Navbar from "./Nav/navbar";
 import Footer from "./footer/footer";
 import './main.css';
-
+import Product from "./product/product";
+import LayoutComponent from "../LayoutComponent";
+import OrderPage from "./OrderPage/orderpage";
+import { CartProvider } from '../CartContext';
 
 
 
 function Main() {
   return (
     <><main>
+    <LayoutComponent>  {/* Wrap all content in LayoutComponent */}
+    <CartProvider>
     <Navbar/>
     <Routes>
       <Route path="/" element={<><HomePage /> <Footer/></>} />
@@ -22,7 +27,11 @@ function Main() {
       <Route path="/allbooks" element={<AllBooks/>}/>
       <Route path="/about-us" element={<Aboutus/>}/>
       <Route path="/cart" element={<Cart/>}/>
+      <Route path='/products' element={<Product/>}/>
+      <Route path='/orderpage' element={<OrderPage/>}/>
     </Routes>
+    </CartProvider>
+    </LayoutComponent>
     </main></>
   );
 }

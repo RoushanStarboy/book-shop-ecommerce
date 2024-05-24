@@ -1,0 +1,220 @@
+#productPage{
+    min-height: calc(calc(100vh - 100px) * 0.8);
+    min-width: auto;
+    background-color: transparent;
+    display: flex;
+    flex-direction: row;
+}
+
+#producSection1{
+    min-height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: row;
+}
+
+#productAside1{
+    height: 100%;
+    width: 40%;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#productAside2{
+    height: 100%;
+    width: 60%;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+}
+
+#productAside1 #productImage{
+    height: 30%;
+    width: 60%;
+    object-fit: cover;
+}
+#productAside1 #productImage img{
+    height: 100%;
+    width: 100%;
+}
+
+#productAside1 #Productdetals{
+    height: 50%;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+}
+
+#productAside2 #productPrice{
+    height: 15%;
+    width: 100%;
+}
+
+#productAside2 #productDeliveryDetailsCard{
+    height: 25%;
+    width: 100%;
+    background-color: #4f4c4c91;
+    padding: 10px;
+}
+#productOffers{
+    height: 35%;
+    width: 100%;
+    background-color: #2f2d2d4f;
+}
+#productAside2 #productCartAndBuy{
+    height: 30%;
+    width: 100%;
+    background-color: #534653;
+    padding: 5%;
+}
+#productAside2 div{
+    margin-bottom: 10px;
+}
+
+
+#producSection2{
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    flex-direction: column;
+    min-height: 100%;
+    width: 40%;
+    background-color: grey;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+#producSection2Recom {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr); /* Alternative for equal rows */
+    grid-template-columns: repeat(2, 1fr); /* Alternative for equal columns */
+    grid-row-gap: 5px;
+  }
+
+  #downarrow,#uparrow{
+    width: 20%;
+    border: 3px solid #262682;
+    border-radius: 10%;
+    background-color: #4ed27a;
+    font-weight: 800;
+  }
+#downarrow{
+    margin-top: 10px;
+}
+#uparrow{
+    margin-bottom: 10px;
+  }
+
+  #dopdownQuantity{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+#buy{
+    height: 30%;
+    width: 50%;
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+    float: left;
+    margin-top: 5%;
+}
+
+#buy a{
+    background-color: black;
+    height: 120%;
+    width: 50%;
+    border-radius: 20px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: larger;
+    font-weight: 600;
+}
+
+#addCart{
+    height: 30%;
+    display: flex;
+    justify-content:  center;
+    align-items: center;
+    margin-top: 7%;
+}
+
+#addCart a{
+    background-color: black;
+    height: 120%;
+    width: 50%;
+    border-radius: 20px;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: larger;
+    font-weight: 600;
+}
+
+#dopdownQuantity #quantity{
+    background-color: black;
+    color: white;
+    border: 2px solid  white;
+    height: 2rem;
+}
+#dopdownQuantity label{
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+
+#discountLogo{
+    height: 20px;
+    width: 20px;
+}
+
+#productOffers #offerGrid{
+    height: 75%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-top: 1%;
+}
+
+#Promocode, #noCostEmi, #bankOffer{
+    align-items: end;
+    height: 100%;
+    width: 30%;
+    background-color: #3c3838a9;
+    overflow: hidden;
+    line-height: .9;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#Promocode > p, #noCostEmi >p, #bankOffer > p{
+    color: #535390;
+    font-weight: 500;
+    font-size: larger;
+}
+
+#Promocode>span, #noCostEmi>span, #bankOffer > span{
+    color: white;
+    font-size:x-small;
+}
+
+
+#productImage img{
+    transition: transform 0.5s ease; /* Smooth transition for zoom effect */
+  }
+  
+  #productImage img:hover {
+    transform: scale(1.); /* Adjust scaling factor as needed */
+    cursor: zoom-in; /* Optional: changes the cursor to a magnifying glass */
+  }
+  

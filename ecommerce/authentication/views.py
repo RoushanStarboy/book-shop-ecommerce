@@ -101,8 +101,9 @@ def login(request):
 
         if my_user is not None:
             auth_login(request, my_user)
-            csrf_token = get_token(request)
-            return JsonResponse({'success': 'Login Success','csrf_token':csrf_token})
+            response = JsonResponse({'success': 'Login Success'})
+            response.set_cookie('userLoggedIn', 'true', httponly=True, samesite='Lax')
+            return response
         else:
             return JsonResponse({'error': 'Invalid Credentials'}, status=400)
     return JsonResponse({'error': 'Invalid request method'}, status=405)

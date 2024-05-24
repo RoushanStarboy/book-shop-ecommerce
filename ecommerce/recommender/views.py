@@ -1,6 +1,5 @@
 import json
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from .models import Contact, Book
 from django.contrib import messages
 import pickle, os
@@ -11,10 +10,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .models import Order, OrderUpdate
 from django.core.paginator import Paginator
-from django.conf import settings
-from django.http import HttpResponseNotFound
-from django.shortcuts import get_object_or_404
-import stripe
 
 
 # ... loading rating_matrix, similarity_scores, and popular_df ...
@@ -49,6 +44,7 @@ def get_books_data(request):
         return JsonResponse(response_data)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 
 def home(request):
@@ -143,68 +139,27 @@ def search_and_recommend(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
-def detail(request, id):
-    try:
-        book = Book.objects.get(id=id)
-    except Book.DoesNotExist:
-        return render(request, '404.html')
-    stripe_publishable_key = settings.STRIPE_PUBLISHABLE_KEY
-    return render(request, 'recommender/detail.html', {'book': book, 'stripe_publishable_key': stripe_publishable_key})
-
-
-@csrf_exempt
-def checkout(request, id):
+def checkout(request):
     if not request.user.is_authenticated:
         messages.warning(request, "Login & Try again")
         return redirect('login.html')
 
     if request.method == 'POST':
-        request_data = json.loads(request.body)
-        book = Book.objects.get(id=id)
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        checkout_session = stripe.checkout.Session.create(
-            customer_email = request_data['email'],
-            payment_method_types = ['card'],
-            line_items=[
-                {
-                    'price_data':{
-                        'currency':'usd',
-                        'book_data':{
-                            'name':book.title,
-                        },
-                        'unit_amount':book.price
-                    },
-                    'quantity':1,
-                }
-            ],
-            mode='payment',
-            success_url=request.build_absolute_uri(reverse('success')) +
-            "?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url=request.build_absolute_uri(reverse('failed')),
-        )
-        order = Order()
-        order.customer_email = request_data['email']
-        order.book = book
-        order.stripe_payment_intent = checkout_session['payment_intent']
-        order.amount = book.price
-        order.save()
-
-        return JsonResponse({'sessionId':checkout_session.id})
-
-def payment_success_view(request):
-    session_id = request.GET.get('session_id')
-    if session_id is None:
-        return HttpResponseNotFound()
-    stripe.api_key = settings.STRIPE_SECRET_KEY
-    session = stripe.checkout.Session.retrieve(session_id)
-    order = get_object_or_404(Order, stripe_payment_intent=session.payment_intent)
-    order.has_paid = True
-    order.save()
-
-    return render(request, 'recommender/payment_success.html',{'order':order})
-
-def payment_failed_view(request):
-    return render(request, 'recommender/failed.html')
+        items = request.POST.get('items', '')
+        name = request.POST.get('name', '')
+        amount = request.POST.get('amt')
+        email = request.POST.get('email', '')
+        address1 = request.POST.get('address1', '')
+        city = request.POST.get('city', '')
+        state = request.POST.get('state', '')
+        zip_code = request.POST.get('zip_code', '')
+        phone = request.POST.get('phone', '')
+        Order = Order(items = items, name = name, amount = amount, email = email, address1 = address1, city = city, state = state, zip_code = zip_code, phone = phone)
+        print(amount)
+        Order.save()
+        update = OrderUpdate(order_id=Order.order_id,update_desc="the order has been placed")
+        update.save()
+        thank = True
 
 def profile(request):
     if not request.user.is_authenticated:
