@@ -25,7 +25,7 @@ function Main() {
       <Route path="/" element={<><HomePage /> <Footer/></>} />
       <Route path="/login" element={<LoginPage/>} />
       <Route path="/allbooks" element={<AllBooks/>}/>
-      <Route path="/about-us" element={<Aboutus/>}/>
+      <Route path="/about-us" element={<><Aboutus/><Footer/></>}/>
       <Route path="/cart" element={<Cart/>}/>
       <Route path='/products' element={<Product/>}/>
       <Route path='/orderpage' element={<OrderPage/>}/>
