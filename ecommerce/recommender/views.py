@@ -16,7 +16,7 @@ from django.core.paginator import Paginator
 popular_df = pd.read_pickle(open(os.path.join('data', 'popular_df.pkl'), 'rb'))
 rating_matrix = pd.read_pickle(open(os.path.join('data', 'rating_matrix.pkl'), 'rb'))
 similarity_scores = pd.read_pickle(open(os.path.join('data', 'similarity_scores.pkl'), 'rb'))
-books = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
+final_df = pd.read_pickle(open(os.path.join('data', 'final_df_sorted.pkl'), 'rb'))
 
 # Loading the data from the pickle file
 books_df = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
@@ -25,7 +25,7 @@ books_df = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
 @require_http_methods(["GET"])
 def get_books_data(request):
     try:
-        books_df = pd.read_pickle(open(os.path.join('data', 'books.pkl'), 'rb'))
+        books_df = pd.read_pickle(open(os.path.join('data', 'final_df_sorted.pkl'), 'rb'))
         books_data = books_df.to_dict(orient='records')
         page_number = int(request.GET.get('page', 1))
         page_size = int(request.GET.get('page_size', 10))
@@ -77,20 +77,42 @@ def recommend_popular(request, num_recommendations=20):
 
 
 def recommend_collaborative(book_name, num_recommendations=10):
-    # Collaborative recommendation goes logic here...
-    index = np.where(rating_matrix.index==book_name)[0][0]
-    similar_items = sorted(list(enumerate(similarity_scores[index])),key=lambda x:x[1],reverse=True)[1:11]
-    recommendations = []
-    for i in similar_items:
-        item = {}
-        temp_df = books[books['Book-Title'] == rating_matrix.index[i[0]]].drop_duplicates('Book-Title')
-        item['title'] = temp_df['Book-Title'].values[0]
-        item['author'] = temp_df['Book-Author'].values[0]
-        item['image_url'] = temp_df['Image-URL-M'].values[0]
-        item['price'] = float(temp_df['price'].values[0])
-        recommendations.append(item)
+    try:
+        # Collaborative recommendation logic
+        print(f"Book name for recommendation: {book_name}")
 
-    return recommendations[:num_recommendations]
+        # Check if the book name exists in the rating matrix index
+        book_indices = np.where(rating_matrix.index == book_name)[0]
+        if len(book_indices) == 0:
+            raise ValueError(f"Book '{book_name}' not found in rating matrix index.")
+
+        index = book_indices[0]
+        print(f"Index found: {index}")
+
+        similar_items = sorted(list(enumerate(similarity_scores[index])), key=lambda x: x[1], reverse=True)[1:11]
+        print(f"Similar items found: {similar_items}")
+
+        recommendations = []
+        for i in similar_items:
+            item = {}
+            temp_df = final_df[final_df['Book-Title'] == rating_matrix.index[i[0]]].drop_duplicates('Book-Title')
+            print(f"Temp DataFrame for similar item: {temp_df}")
+
+            if not temp_df.empty:
+                item['title'] = temp_df['Book-Title'].values[0]
+                item['author'] = temp_df['Book-Author'].values[0]
+                item['image_url'] = temp_df['Image-URL-M'].values[0]
+                item['price'] = float(temp_df['price'].values[0])
+                recommendations.append(item)
+
+        print(f"Recommendations generated: {recommendations}")
+
+        return recommendations[:num_recommendations]
+    except Exception as e:
+        print(f"Error in recommendation function: {e}")
+        raise e
+
+
 
 @csrf_exempt  # This decorator is used to bypass CSRF verification for demonstration purposes.
 @require_http_methods(["POST"])  # This decorator restricts this view to only handle POST requests.
@@ -110,26 +132,27 @@ def get_recommendations(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+
 @csrf_exempt
 @require_http_methods(["POST"])
 def search_and_recommend(request):
     try:
-        book_title = request.POST['book_title']
+        book_title = request.POST.get('title')
         if not book_title:
             return JsonResponse({'error': 'Book title is required'}, status=400)
 
-        # Fetching the book details from the database
-        book_query = books[books['Book-Title'].str.contains(book_title, case=False)]
+        book_query = final_df[final_df['Book-Title'].str.contains(book_title, case=False)]
         if book_query.empty:
             return JsonResponse({'error': 'No book found'}, status=404)
 
-        # Assuming 'books' DataFrame has a unique identifier for each book
-        book_details = book_query.to_dict('records')[0]  # Taking the first match for simplicity
+        book_details = book_query.to_dict('records')[0]
 
-        # Getting recommendations based on the book found
-        recommendations = recommend_collaborative(book_name=book_title, num_recommendations=10)
+        try:
+            recommendations = recommend_collaborative(book_name=book_details['Book-Title'], num_recommendations=10)
+        except Exception as e:
+            print(f"Error in recommendation function: {e}")
+            return JsonResponse({'error': 'Error in generating recommendations', 'details': str(e)}, status=500)
 
-        # Preparing the response
         response_data = {
             'book_details': book_details,
             'recommendations': recommendations
@@ -137,7 +160,9 @@ def search_and_recommend(request):
         return JsonResponse(response_data)
 
     except Exception as e:
+        print(f"General error: {e}")
         return JsonResponse({'error': str(e)}, status=500)
+
 
 def checkout(request):
     if not request.user.is_authenticated:

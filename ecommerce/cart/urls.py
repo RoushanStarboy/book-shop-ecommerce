@@ -16,12 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from authentication import views
-from recommender import views
+from cart import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('authentication/', include("authentication.urls")),
-    path('recommender/', include('recommender.urls')),
-    path('cart/', include('cart.urls')),
+    path('details', views.product_detail, name='product_detail'),
+    path('your_cart', views.cart, name='cart'),
 ]

@@ -4,6 +4,8 @@ from recommender.models import Book
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.csrf import csrf_exempt
 
 
 def get_cart(request):
@@ -53,14 +55,32 @@ def get_total_cost(request):
         total_price += product.price * item['quantity']
     return total_price
 
-def product_detail(request, product_id):
+    # if request.method == 'POST':
+    #     # Handling adding to cart
+    #     quantity = int(request.POST.get('quantity', 1))
+    #     add_to_cart(request, book.id, quantity)  # Assuming add_to_cart is defined elsewhere
+    #     return JsonResponse({'message': 'Book added to cart!'})
+
+
+@csrf_exempt
+@require_http_methods(["GET", "POST"])
+def product_detail(request):
+    # Handle query parameters for GET and POST requests
+    if request.method == "GET":
+        book_title = request.GET.get('title')
+    elif request.method == "POST":
+        book_title = request.POST.get('title')
+
+    if not book_title:
+        return JsonResponse({'error': 'No book name provided'}, status=400)
+
     try:
-        book = Book.objects.get(pk=product_id)
+        book = Book.objects.get(title=book_title)
     except Book.DoesNotExist:
         return JsonResponse({'error': 'Book not found'}, status=404)
 
+    # Preparing the context with book details
     context = {
-        'book': book,
         'title': book.title,
         'author': book.author,
         'price': book.price,
@@ -70,12 +90,8 @@ def product_detail(request, product_id):
         'publisher': book.publisher,
     }
 
-    if request.method == 'POST':
-        quantity = int(request.POST.get('quantity', 1))
-        add_to_cart(request, product_id, quantity)
-        return JsonResponse({'message': 'Book added to cart !'})
-
     return JsonResponse(context)
+
 
 def cart(request):
     cart = get_cart(request)
