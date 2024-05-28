@@ -1,0 +1,6 @@
+
+*.pyc
+*.pyc
+/env
+/ecommerce/authentication/__pycache__
+/env

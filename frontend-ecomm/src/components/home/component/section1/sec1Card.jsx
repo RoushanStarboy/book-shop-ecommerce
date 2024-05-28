@@ -1,6 +1,5 @@
 import React from 'react';
 import "./section1.css";
-import Navbar from '../../../Nav/navbar';
 import { NavLink } from 'react-router-dom';
 
 
@@ -14,8 +13,8 @@ function Sec1Card(props){
         <div class="blur-overlay"></div>
             
                 <div id='sec1cardImg'  style={{display:"visible"}}>
-
-                    <img src={props.image} alt='Books'/>
+                <img alt="alt" src="https://img.freepik.com/premium-vector/black-sign-that-says-book-story-reading-reading-reading-club_1212397-20.jpg?w=740" style={{position:"absolute"}}/>
+                <img src={props.image} alt='Books' style={{position:"inherit"}}/>
                 </div>
                 
                 <div id='hoverMenuOnCard'>

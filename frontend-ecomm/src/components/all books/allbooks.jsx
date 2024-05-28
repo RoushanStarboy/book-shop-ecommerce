@@ -66,7 +66,7 @@ function AllBooks() {
                         key={book.ISBN}
                         Name={book["Book-Title"]}
                         bookAuthor={book["Book-Author"]}
-                        Image={book["Image-URL-M"]}
+                        Image={book["Image-URL-L"]}
                     />
                     
                 ))}

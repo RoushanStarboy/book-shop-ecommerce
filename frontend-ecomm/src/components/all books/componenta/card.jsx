@@ -29,7 +29,8 @@ function Card(props) {
 
   return (
     <div id="main-Cards">
-      <div id="card-img">
+      <div id="card-img" style={{position:"relative"}}>
+        <img alt="alt" src="https://img.freepik.com/premium-vector/black-sign-that-says-book-story-reading-reading-reading-club_1212397-20.jpg?w=740" style={{position:"absolute", opacity:'0.5'}}/>
         <img src={props.Image} alt="Avatar" />
       </div>
       <div
