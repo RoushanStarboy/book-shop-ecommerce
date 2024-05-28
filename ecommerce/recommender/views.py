@@ -14,7 +14,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import NearestNeighbors
 
 
-popular_df = pd.read_pickle(open(os.path.join('data', 'final_top_50_books.pkl'), 'rb'))
+popular_df = pd.read_pickle(open(os.path.join('data', 'top_books_recom.pkl'), 'rb'))
 tfidf_matrix = pd.read_pickle(open(os.path.join('data', 'tfidf_vectorizer.pkl'), 'rb'))
 similarity_scores = pd.read_pickle(open(os.path.join('data', 'similarity_scores.pkl'), 'rb'))
 final_df = pd.read_pickle(open(os.path.join('data', 'all_books.pkl'), 'rb'))
@@ -64,9 +64,9 @@ def recommend_popular(request, num_recommendations=20):
                 'id' : nums,                    # added for no reason (Still )
                 'title': row['Book-Title'] if 'Book-Title' in row else 'Not Available',         # handled here <Look Here>
                 'author': row['Book-Author'] if 'Book-Author' in row else 'Not Available',      # handled here
-                'image': row['Image-URL-M'] if 'Image-URL-M' in row else 'Not Available',
+                'image': row['Image-URL-L'] if 'Image-URL-L' in row else 'Not Available',
                 'rating': row['avg_rating'] if 'avg_rating' in row else 'Not Available',            # handled here
-                'price': row['price'] if 'price' in row else 'Not Available'                            # Defaulting to 'Not Available' if price is missing
+                'price': row['Price'] if 'Price' in row else 'Not Available'                            # Defaulting to 'Not Available' if price is missing
             }
             recommendations.append(item)
             nums += 1
