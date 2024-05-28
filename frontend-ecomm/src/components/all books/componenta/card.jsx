@@ -1,36 +1,48 @@
-import React from "react";
-// import Avatar from "./avatar";
-// import Details from "./details";
+import React, { useEffect, useRef, useState } from "react";
 
 function Card(props) {
-  // const getDynamicFontSize = (text) => {
-  //   if (text.length > 20) {
-  //     return "0.8rem"; // Smaller font size for longer text
-  //   } else if (text.length > 10) {
-  //     return "0.8rem"; // Medium font size for medium length text
-  //   } else {
-  //     return "1rem"; // Larger font size for shorter text
-  // style={{ fontSize: getDynamicFontSize(props.bookAuthor) }}
-  //   }
-  // };
+  const [isNameOverflowing, setIsNameOverflowing] = useState(false);
+  const bookNameRef = useRef(null);
+
+  const [isAuthorOverflowing, setIsAuthorOverflowing] = useState(false);
+  const authorNameRef = useRef(null);
+
+  const isOverflowing = (element) => {
+    return element.scrollWidth > element.clientWidth;
+  };
+
+  useEffect(() => {
+    const namecontainerText = bookNameRef.current;
+    if (namecontainerText && isOverflowing(namecontainerText)) {
+      setIsNameOverflowing(true);
+    } else {
+      setIsNameOverflowing(false);
+    }
+
+    const authorContainer = authorNameRef.current;
+    if (authorContainer && isOverflowing(authorContainer)) {
+      setIsAuthorOverflowing(true);
+    } else {
+      setIsAuthorOverflowing(false);
+    }
+  }, [props.Name, props.bookAuthor]);
+
   return (
-    <>
-      <div id="main-Cards">
-        <div id="card-img">
-          <img src={props.Image} alt="Avatar" />
-        </div>
-        <div id="card-name">
-          <h1>
-            {props.Name}
-          </h1>
-        </div>
-        <div id="card-name">
-          <h1 >
-            {props.bookAuthor}
-          </h1>
-        </div>
+    <div id="main-Cards">
+      <div id="card-img">
+        <img src={props.Image} alt="Avatar" />
       </div>
-    </>
+      <div
+        id="card-name"
+        ref={bookNameRef}
+        style={{ width: '200px', overflow: 'hidden', whiteSpace: 'nowrap' }}
+      >
+        <span className={isNameOverflowing ? "ismarquree" : ""}>{props.Name}</span>
+      </div>
+      <div id="card-author" ref={authorNameRef}>
+        <span className={isAuthorOverflowing ? "ismarquree" : ""}>{props.bookAuthor}</span>
+      </div>
+    </div>
   );
 }
 
