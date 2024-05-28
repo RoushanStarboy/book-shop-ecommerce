@@ -6,6 +6,9 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
+import stripe
+from django.conf import settings
+from django.urls import reverse
 
 
 def get_cart(request):
@@ -16,10 +19,10 @@ def get_cart(request):
     cart = {}
     if cart_id:
         try:
-            cart = json.loads(request.session[cart_id])
+            cart = json.loads(request.session.get(cart_id, '{}'))
         except (KeyError, json.JSONDecodeError):
-          pass
-        return cart
+            pass
+    return cart
 
 def add_to_cart(request, product_id, quantity=1):
     """
@@ -51,8 +54,11 @@ def get_total_cost(request):
     cart = get_cart(request)
     total_price = 0
     for product_id, item in cart.items():
-        product = Book.objects.get(pk=product_id)
-        total_price += product.price * item['quantity']
+        try:
+            product = Book.objects.get(pk=product_id)
+            total_price += product.price * item['quantity']
+        except Book.DoesNotExist:
+            continue  # Skip if the product does not exist
     return total_price
 
     # if request.method == 'POST':
@@ -74,42 +80,83 @@ def product_detail(request):
     if not book_title:
         return JsonResponse({'error': 'No book name provided'}, status=400)
 
-    try:
-        book = Book.objects.get(title=book_title)
-    except Book.DoesNotExist:
+    # Using filter instead of get to handle multiple results
+    books = Book.objects.filter(title=book_title)
+    if not books.exists():
         return JsonResponse({'error': 'Book not found'}, status=404)
 
     # Preparing the context with book details
-    context = {
-        'title': book.title,
-        'author': book.author,
-        'price': book.price,
-        'rating': book.rating,
-        'image_url': book.image_url,
-        'Y_Pub': book.Y_Pub,
-        'publisher': book.publisher,
-    }
+    books_details = []
+    for book in books:
+        book_detail = {
+            'isbn': book.isbn,
+            'title': book.title,
+            'author': book.author,
+            'price': book.price,
+            'image_url_small': book.image_url_small,
+            'image_url_medium': book.image_url_medium,
+            'image_url_large': book.image_url_large,
+            'Y_Pub': book.Y_Pub,
+            'publisher': book.publisher,
+        }
+        books_details.append(book_detail)
 
-    return JsonResponse(context)
+    return JsonResponse({'books': books_details})
 
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def cart(request):
     cart = get_cart(request)
     total_price = get_total_cost(request)
 
     cart_items = []
+    line_items = []
     for item_id, item in cart.items():
-        book = Book.objects.get(pk=item_id)
+        try:
+            book = Book.objects.get(pk=item_id)
+        except Book.DoesNotExist:
+            continue  # Skip this item if the book does not exist
+
         cart_items.append({
             'title': book.title,
             'price': book.price,
-            'quatity': item['quantity'],
+            'quantity': item['quantity'],
         })
 
-    context = {
-        'cart_items': cart_items,
-        'total_price': total_price,
-    }
+        line_items.append({
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': book.title,
+                },
+                'unit_amount': int(book.price * 100),  # Stripe expects the amount in cents
+            },
+            'quantity': item['quantity'],
+        })
 
-    return JsonResponse(context)
+    try:
+        # Create Stripe Checkout Session
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=line_items,
+            mode='payment',
+            success_url=request.build_absolute_uri(reverse('success')) + "?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=request.build_absolute_uri(reverse('failed')),
+        )
+
+        context = {
+            'cart_items': cart_items,
+            'total_price': total_price,
+            'session_id': session.id,
+        }
+        return JsonResponse(context)
+
+    except stripe.error.StripeError as e:
+        # Handle Stripe errors
+        return JsonResponse({'error': 'Stripe error', 'details': str(e)}, status=500)
+    except Exception as e:
+        # Handle other possible errors
+        return JsonResponse({'error': 'An error occurred', 'details': str(e)}, status=500)
+
+
 
