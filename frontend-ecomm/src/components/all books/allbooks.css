@@ -1,98 +1,143 @@
-body{
-    background-color: whitesmoke;
+body {
+  background-color: whitesmoke;
 }
 
-#all-card{
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    /* background-image: linear-gradient(#EDF1D6, #9DC08B,#bdf6a1,#9DC08B, #EDF1D6); */
-    background-color: #f7f7f7;
-    /* backdrop-filter: blur(5px); */
-    min-width: 100%;
-    min-height: 100%;
-    place-items: center;
-    box-shadow: 0 1 50px (#904406, 0.1);
-    
+#all-card {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: #f7f7f7;
+  min-width: 100%;
+  min-height: 100%;
+  place-items: center;
+  box-shadow: 0 1 50px rgba(0, 0, 0, 0.1);
 }
 
-
-#main-Cards{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #bac08b57;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-    width: 280px;
-    height: 300px;
-    margin: 20px;
-    border-radius: 15px;
-    padding:20px
-
-}
-#card-img{
-    background-color: black;
-    height: 60%;
-    width: 70%;
-    border-radius: 15px;
+#main-Cards {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #bac08b57;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  width: 280px;
+  height: 300px;
+  margin: 20px;
+  border-radius: 15px;
+  padding: 20px;
 }
 
-#card-img img{
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    opacity: 0.9;
-    border-radius: 15px;
+#card-img {
+  background-color: black;
+  height: 60%;
+  width: 70%;
+  border-radius: 15px;
+}
+
+#card-img img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  border-radius: 15px;
+}
+
+#main-Cards #card-author {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  width: 80%;
+  min-height: 20%;
+  margin: 5px;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden; /* Hide overflow */
+  text-overflow: ellipsis; /* Display ellipsis (...) for overflowing text */
+  word-wrap: break-word; /* Break long words */
+  border-radius: 10px;
+  padding: 5%;
+  transition: all 0.5s ease-out;
 }
 
 #main-Cards #card-name{
     display: flex;
     align-items: center;
-    justify-content: center;
     background-color: white;
     width: 80%;
     min-height: 20%;
     margin: 5px;
-    white-space:nowrap;
     text-align: center;
+    box-sizing: border-box;
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Display ellipsis (...) for overflowing text */
+    word-wrap: break-word; /* Break long words */
+    border-radius: 20px;
+    padding: 5%;
+    transition: all 1s ease-out;
 }
 
-#card-name h1{
-    font-size: 1em;
-    font-family:'Lucida Sans';
-    font-weight: 600;
-    white-space: wrap;
+#main-Cards #card-author:hover{
+    background-color: #119611cb;
+    color: black;
+    font-weight: 800;
 }
 
-#main-Cards #card-details{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    height: 15%;
-    width: 90%;
-    background-color: aqua;
-    text-align: center;
-}
-
-#card-details span{
-    font-size: 90%;
-    white-space: wrap;
-}
-#heading-books{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #EDF1D6;
-    height: 70px;
-}
-
-#heading-books h1{
-    font-family: "Nunito Sans";
+#main-Cards #card-name:hover{
+    background-color: #512da8;
+    color: white;
     font-weight: 800;
 }
 
 
-#recom-card{
-    display: flex;
-    justify-content: space-around;
+
+#card-name span,
+#card-author span {
+    font-size: 85%;
+  font-family: 'Lucida Sans';
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+#main-Cards #card-details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 15%;
+  width: 90%;
+  background-color: aqua;
+  text-align: center;
+}
+
+#card-details span {
+  font-size: 90%;
+  white-space: wrap;
+}
+
+#heading-books {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #edf1d6;
+  height: 70px;
+}
+
+#heading-books h1 {
+  font-family: "Nunito Sans";
+  font-weight: 800;
+}
+
+#recom-card {
+  display: flex;
+  justify-content: space-around;
+}
+
+#main-Cards #card-name:hover .ismarquree {
+  animation: marquee 10s linear;
+}
+@keyframes marquee {
+  0% {
+      transform: translate(0, 0);
+  }
+  100% {
+      transform: translate(-100%, 0);
+  }
 }

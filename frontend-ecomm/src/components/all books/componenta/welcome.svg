@@ -1,0 +1,40 @@
+<svg width="1000" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#cdb4db;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffc8dd;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffafcc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bde0fe;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a2d2ff;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <style>
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+    @keyframes holiColors {
+      0% { fill: #a8dadc; }
+      20% { fill: #5e548e; }
+      40% { fill: #9f86c0; }
+      60% { fill: #be95c4; }
+      80% { fill: #e0b1cb; }
+      100% { fill: #ffe5ec; }
+    }
+    .animated-text {
+      animation: fadeIn 2s ease-in-out;
+      stroke: #000000;
+      stroke-width: 2px;
+      paint-order: stroke fill;
+      transition: fill 1s;
+      animation: holiColors 10s infinite;
+    }
+    .animated-text:hover {
+      animation: none;
+      fill: url(#textGradient);
+    }
+  </style>
+  <rect width="100%" height="100%" fill="whitesmoke"/>
+  <text x="50%" y="50%" font-family="Arial, Helvetica, sans-serif" font-size="60" fill="#FFFFFF" text-anchor="middle" alignment-baseline="middle" font-weight="bold" class="animated-text">Welcome To Ocean Of Books</text>
+</svg>

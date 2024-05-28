@@ -3,6 +3,8 @@ import axios from "axios";
 import Card from '../all books/componenta/card';
 import "./allbooks.css";
 import { NavLink } from "react-router-dom";
+import { ReactComponent as WelcomeSVG } from "./componenta/welcome.svg";
+
 
 function AllBooks() {
     const [books, setBooks] = useState([]);
@@ -46,7 +48,8 @@ function AllBooks() {
     return (
         <>
             <div id="heading-books">
-                <h1>Welcome To Ocean Of Books</h1>
+                <WelcomeSVG style={{height:"100%", width:"500%"}}/>
+
             </div>
             <div id="previousPage">
                 <button onClick={previousPage} disabled={currentPage === 1}> Previous Page</button>
