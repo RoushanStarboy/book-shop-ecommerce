@@ -14,6 +14,7 @@ from recommender.views import search_and_recommend
 
 
 
+
 def get_cart(request):
     """
     Retrieves cart items from the session or creates an empty cart.

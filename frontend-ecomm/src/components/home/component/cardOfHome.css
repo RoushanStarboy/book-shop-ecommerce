@@ -21,3 +21,17 @@
     width: 100%;
     border-radius: inherit;
 }
+
+#cardOfHome:hover #recomHomeHOver{
+    visibility: visible;
+}
+
+#recomHomeHOver{
+    background-color: #145192fe;
+    min-height: 110%;
+    width: 100%;
+    border-radius: inherit;
+    font-weight: 900;
+    visibility: hidden;
+    color: #43ce81;
+}
