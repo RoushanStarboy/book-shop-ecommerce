@@ -21,4 +21,6 @@ from cart import views
 urlpatterns = [
     path('details', views.product_detail, name='product_detail'),
     path('your_cart', views.cart, name='cart'),
+    path('success', views.payment_success, name='success'),
+    path('failed', views.payment_failed, name='failed'),
 ]

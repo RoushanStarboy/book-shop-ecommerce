@@ -1,13 +1,59 @@
 import React, { useState, useEffect } from "react";
 import "./Home.css";
+import "./component/cardOfHome.css";
 import Section1 from "./component/section1/section1.jsx";
 import randomQuote from "../../qAPI/quotes.jsx";
 import Section2 from "./component/section2/section2.jsx";
+import CardOfHome from "./component/cardOfhome.jsx";
 
 
+const backgroundImageUrl = "https://img.freepik.com/premium-vector/black-sign-that-says-book-story-reading-reading-reading-club_1212397-20.jpg?w=740";
+function SearchAndRecom({ results }) {
+  if (!results) return null;
+
+  const { book_details } = results;
+  return (
+    <>
+      <CardOfHome 
+        Image={book_details['Image-URL-L']} 
+        Name={book_details['Book-Title']}
+        Author={book_details['Book-Author']}
+        Price={book_details['Price']}
+      />
+    </>
+  );
+}
 
 function Home() {
   const [quote, setQuote] = useState("");
+  const [title, setTitle] = useState('');
+  const [results, setResults] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError(null);
+    setResults(null);
+
+    const formData = new FormData();
+    formData.append('title', title);
+
+    try {
+      const response = await fetch('http://127.0.0.1:8000/recommender/search', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setResults(data);
+      } else {
+        setError(data.error);
+      }
+    } catch (err) {
+      setError('An error occurred while fetching data.');
+    }
+  };
 
   useEffect(() => {
     const fetchQuote = async () => {
@@ -15,10 +61,9 @@ function Home() {
       setQuote(fetchedQuote);
     };
 
-
     fetchQuote();
-    const interValid = setInterval(fetchQuote, 10000);
-    return () => clearInterval(interValid);
+    const intervalId = setInterval(fetchQuote, 10000);
+    return () => clearInterval(intervalId);
   }, []);
 
   const [on, setOn] = useState("none");
@@ -42,18 +87,89 @@ function Home() {
             ×
           </span>
           <div id="searchOn">
-            <form action="/allbooks" method="POST">
-              <input placeholder="What's in your mind ?" name="search" />
+            <form onSubmit={handleSubmit}>
+              <input
+                placeholder="What's in your mind?"
+                name="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
               <button type="submit">
-                <i class="fa fa-search"></i>
+                <i className="fa fa-search"></i>
               </button>
             </form>
           </div>
-          <div style={{height:"50%",width:"80%", display:"flex",position:"relative",top:"40%", left:"10%",gap:"10px"}}>
-            <div style={{height:"70%",width:"25%", backgroundColor:"#B2BEB5",borderRadius:"20px"}}></div>
-            <div style={{height:"70%",width:"25%", backgroundColor:"#B2BEB5",borderRadius:"20px"}}></div>
-            <div style={{height:"70%",width:"25%", backgroundColor:"#B2BEB5",borderRadius:"20px"}}></div>
-            <div style={{height:"70%",width:"25%", backgroundColor:"#B2BEB5",borderRadius:"20px"}}></div>
+
+          <div
+            style={{
+              height: "50%",
+              width: "80%",
+              display: "flex",
+              position: "relative",
+              top: "40%",
+              left: "10%",
+              gap: "10px",
+            }}
+          >
+            <div
+              style={{
+                height: "100%",
+                width: "25%",
+                backgroundColor: "#B2BEB5",
+                borderRadius: "20px",
+              }}
+            >
+              {error && <p>{error}</p>}
+              {results && <SearchAndRecom results={results} />}
+            </div>
+
+            {results && results.recommendations && (
+              <div style={{ display: "flex", flexDirection:"row", gap: "10px"}}>
+                {results.recommendations.slice(0,5).map((book, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      height: "70%",
+                      width: "25%",
+                      backgroundColor: "#B2BEB5",
+                      borderRadius: "20px",
+                      padding: "10px",
+                      backgroundImage:`url(${backgroundImageUrl})`
+                    }}
+                  >
+                    <img src={book['Image-URL-M']} alt="book Recom" style={{height:"100%", width:"100%", borderRadius:"inherit"}}/>
+                    {/* <p>
+                      {book['Book-Title']} by {book['Book-Author']}
+                    </p> */}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* <div
+              style={{
+                height: "70%",
+                width: "25%",
+                backgroundColor: "#B2BEB5",
+                borderRadius: "20px",
+              }}
+            ></div>
+            <div
+              style={{
+                height: "70%",
+                width: "25%",
+                backgroundColor: "#B2BEB5",
+                borderRadius: "20px",
+              }}
+            ></div>
+            <div
+              style={{
+                height: "70%",
+                width: "25%",
+                backgroundColor: "#B2BEB5",
+                borderRadius: "20px",
+              }}
+            ></div> */}
           </div>
         </div>
         <section id="page1">
@@ -74,7 +190,6 @@ function Home() {
                 <span onClick={SearchON}> Discover Knowledge</span>
               </div>
             </div>
-            
           </article>
         </section>
       </section>

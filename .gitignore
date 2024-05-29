@@ -4,3 +4,4 @@
 /env
 /ecommerce/authentication/__pycache__
 /env
+*.pyc

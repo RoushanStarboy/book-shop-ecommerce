@@ -7,6 +7,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 import stripe
+import logging
 from django.conf import settings
 from django.urls import reverse
 
@@ -105,58 +106,92 @@ def product_detail(request):
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
+# Set up logging
+logger = logging.getLogger(__name__)
+
+# Set your secret key. Remember to switch to your live secret key in production!
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+@csrf_exempt
 def cart(request):
-    cart = get_cart(request)
-    total_price = get_total_cost(request)
-
-    cart_items = []
-    line_items = []
-    for item_id, item in cart.items():
+    if request.method == 'GET':
         try:
-            book = Book.objects.get(pk=item_id)
-        except Book.DoesNotExist:
-            continue  # Skip this item if the book does not exist
+            cart = get_cart(request)
+            total_price = get_total_cost(request)
 
-        cart_items.append({
-            'title': book.title,
-            'price': book.price,
-            'quantity': item['quantity'],
-        })
+            cart_items = []
+            for item_id, item in cart.items():
+                try:
+                    book = Book.objects.get(pk=item_id)
+                except Book.DoesNotExist:
+                    continue  # Skip this item if the book does not exist
 
-        line_items.append({
-            'price_data': {
-                'currency': 'usd',
-                'product_data': {
-                    'name': book.title,
+                cart_items.append({
+                    'title': book.title,
+                    'price': book.price,
+                    'quantity': item['quantity'],
+                })
+
+            context = {
+                'cart_items': cart_items,
+                'total_price': total_price,
+            }
+            return JsonResponse(context)
+        except Exception as e:
+            logger.error("Error processing GET request: %s", str(e))
+            return JsonResponse({'error': 'An error occurred', 'details': str(e)}, status=500)
+
+    elif request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            title = data.get('title')
+            price = data.get('price')
+
+            # Create line items for Stripe session
+            line_items = [{
+                'price_data': {
+                    'currency': 'usd',
+                    'product_data': {
+                        'name': title,
+                    },
+                    'unit_amount': int(price * 100),  # Stripe expects the amount in cents
                 },
-                'unit_amount': int(book.price * 100),  # Stripe expects the amount in cents
-            },
-            'quantity': item['quantity'],
-        })
+                'quantity': 1,
+            }]
 
-    try:
-        # Create Stripe Checkout Session
-        session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=line_items,
-            mode='payment',
-            success_url=request.build_absolute_uri(reverse('success')) + "?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url=request.build_absolute_uri(reverse('failed')),
-        )
+            # Create Stripe Checkout Session
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=line_items,
+                mode='payment',
+                success_url=request.build_absolute_uri(reverse('success')) + "?session_id={CHECKOUT_SESSION_ID}",
+                cancel_url=request.build_absolute_uri(reverse('failed')),
+            )
 
-        context = {
-            'cart_items': cart_items,
-            'total_price': total_price,
-            'session_id': session.id,
-        }
-        return JsonResponse(context)
+            return JsonResponse({'session_id': session.id})
 
-    except stripe.error.StripeError as e:
-        # Handle Stripe errors
-        return JsonResponse({'error': 'Stripe error', 'details': str(e)}, status=500)
-    except Exception as e:
-        # Handle other possible errors
-        return JsonResponse({'error': 'An error occurred', 'details': str(e)}, status=500)
+        except stripe.error.StripeError as e:
+            logger.error("Stripe error: %s", str(e))
+            return JsonResponse({'error': 'Stripe error', 'details': str(e)}, status=500)
+        except Exception as e:
+            logger.error("Error processing POST request: %s", str(e))
+            return JsonResponse({'error': 'An error occurred', 'details': str(e)}, status=500)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
+@csrf_exempt
+def payment_success(request):
+    # Retrieve the session_id from the query parameters
+    session_id = request.GET.get('session_id')
 
+    if not session_id:
+        return JsonResponse({'error': 'No session ID provided'}, status=400)
+
+    return render(request, 'success.html', {'session_id': session_id})
+
+# Failed view
+@csrf_exempt
+def payment_failed(request):
+    return render(request, 'failed.html')

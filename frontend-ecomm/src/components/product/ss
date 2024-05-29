@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./products.css";
+
 import Recommend_popular from "../../topRecom/recommend_popular";
 import Sec1Card from "../home/component/section1/sec1Card";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import image from "./assets/image.png";
 import Footer from "../footer/footer";
+import { height, width } from "@fortawesome/free-brands-svg-icons/fa42Group";
+import { text } from "@fortawesome/fontawesome-svg-core";
 import { CartContext } from '../../CartContext';
 
 function allCrds(props) {
@@ -22,21 +26,8 @@ function Product() {
   const [recomPop, setRecomPop] = useState([]);
   const [curentPage, setCurrentPage] = useState(1);
   const perPage = 4;
-  const location = useLocation();
-  const { title, image, author, price } = location.state;
 
   const { cartCount, handleAddToCart } = useContext(CartContext);
-
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate('/orderpage', {
-      state: {
-        title: title,
-        price: price,
-      },
-    });
-  };
 
   useEffect(() => {
     const allrecom = async () => {
@@ -77,18 +68,19 @@ function Product() {
         <section id="producSection1">
           <aside id="productAside1">
             <div id="productImage">
-              <img style={{ borderRadius: "20px" }} src={image} alt="product"></img>
+              <img  style={{borderRadius:"20px"}} src="https://imgs.search.brave.com/OtE2VmWIQ5SRhTAhjzWcuakmx03rTr1FAe8anNkN5pM/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pLmRp/c2NvZ3MuY29tLzF5/cWRTb29MQlkzZ1BW/N0ttWEhPTnlKOS1t/M3dod0NSQlBjUG40/NG52QlkvcnM6Zml0/L2c6c20vcTo0MC9o/OjMwMC93OjMwMC9j/ek02THk5a2FYTmpi/MmR6L0xXUmhkR0Zp/WVhObExXbHQvWVdk/bGN5OVNMVEl3TWpJ/dy9NaTB4TlRRNU5q/TTBNVGs1L0xUUTJN/VFV1YW5CbFp3Lmpw/ZWc" alt="product"></img>
             </div>
             <div id="Productdetals">
-              <h3>{title}</h3>
-              <p>{author}</p>
+              <h3> Cosmic Loop</h3>
+              <p>By Rahul Roy</p>
             </div>
           </aside>
 
           <aside id="productAside2">
             <div id="productPrice">
-              <span style={{ fontSize: "1.5rem" }}><b>Price :</b> {price} ₹</span><br />
-              <span style={{ textDecoration: "line-through" }}>MRP = 69 ₹</span>
+              <span style={{fontSize:"1.5rem"}}> <b>Price :</b> 69 ₹</span><br/>
+              <span style={{textDecoration: "line-through"}}>MRP = 69 ₹</span>
+
             </div>
 
             <div id="productDeliveryDetailsCard">
@@ -97,11 +89,11 @@ function Product() {
                 PM. <a href="/">Details</a>
               </p>
               <p style={{}}>
-                <span style={{ color: "#6be9ff", fontWeight: "600", fontSize: "larger" }}>In stock</span><br />
-                Ships from<br />
-                BookNest.In
-                Sold by martPrivate Ltd.<br />
-              </p>
+                <sapn style={{color:"#6be9ff", fontWeight:"600", fontSize:"larger"}}>In stock</sapn><br/>
+                Ships from<br/>
+                BookNest.In 
+                Sold by martPrivate Ltd.<br/>
+                </p>
             </div>
 
             <div id="productOffers">
@@ -135,9 +127,9 @@ function Product() {
                 </div>
                 <div id="Promocode">
                   <p>Promo Code</p>
-                  <label htmlFor="promocode" style={{ fontSize: "1.1rem", color: "whitesmoke" }}>Code</label>
-                  <input name="promocode" placeholder="your Code" style={{ height: "30%", width: "100%", backgroundColor: "grey", fontWeight: 600, color: "white", marginTop: "5%" }} />
-                  <button style={{ marginTop: "10%", height: "20%", width: "60%" }}>Confirm</button>
+                  <label for="promocode" style={{fontSize:"1.1rem", color:"whitesmoke"}}>Code</label>
+                  <input name="promocode" placeholder="your Code"  style={{height:"30%", width: "100%", backgroundColor:"grey", fontWeight:600, color:"white", marginTop:"5%"}}/>
+                  <button style={{marginTop:"10%", height:"20%", width:"60%",}}>Confirm</button>
                 </div>
               </div>
             </div>
@@ -146,7 +138,7 @@ function Product() {
 
             <div id="productCartAndBuy">
               <div id="dopdownQuantity">
-                <label htmlFor="quantity">Quantity:</label>
+                <label for="quantity">Quantity:</label>
                 <select id="quantity" name="quantity">
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -154,18 +146,11 @@ function Product() {
                 </select>
               </div>
               <div id="buy">
-                <Link 
-                  to={{
-                    pathname: "/orderpage"
-                  }}
-                  onClick={handleClick}
-                >
-                  Buy
-                </Link>
+                <NavLink to="/orderpage">Buy</NavLink>
               </div>
-              <box style={{ minHeight: "4%", minWidth: "2%", position: "absolute", backgroundColor: "black", color: "#262682", textAlign: "center", borderRadius: "50%" }}><b>{cartCount}</b></box>
+              <box style={{minHeight:"4%",minWidth:"2%", position:"absolute", backgroundColor:"black",color:"#262682", textAlign:"center", borderRadius:"50%"}}><b>{cartCount}</b></box>
               <div id="addCart">
-                <Link onClick={handleAddToCart}> Add To Cart </Link>
+                <NavLink onClick={handleAddToCart}> Add To Cart </NavLink>
               </div>
             </div>
           </aside>
@@ -190,8 +175,8 @@ function Product() {
           </button>
         </section>
       </main>
-      <br />
-      <Footer />
+      <br/>
+      <Footer/>
     </>
   );
 }

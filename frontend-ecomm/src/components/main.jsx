@@ -12,12 +12,16 @@ import Product from "./product/product";
 import LayoutComponent from "../LayoutComponent";
 import OrderPage from "./OrderPage/orderpage";
 import { CartProvider } from '../CartContext';
+import Preloader from "./Preloader/preloader";
 
 
 
 function Main() {
   return (
-    <><main>
+
+    <>
+    <Preloader /> {/* Add Preloader */}
+    <main>
     <LayoutComponent>  {/* Wrap all content in LayoutComponent */}
     <CartProvider>
     <Navbar/>
