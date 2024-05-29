@@ -12,6 +12,7 @@ from django.conf import settings
 from django.urls import reverse
 
 
+
 def get_cart(request):
     """
     Retrieves cart items from the session or creates an empty cart.
@@ -147,6 +148,7 @@ def cart(request):
             data = json.loads(request.body)
             title = data.get('title')
             price = data.get('price')
+            print(price)
 
             # Create line items for Stripe session
             line_items = [{
