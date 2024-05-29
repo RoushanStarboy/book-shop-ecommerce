@@ -1,15 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 import json
-from recommender.models import Book
+from recommender.models import Book, Order
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotFound
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 import stripe
 import logging
 from django.conf import settings
 from django.urls import reverse
+from recommender.views import search_and_recommend
 
 
 def get_cart(request):
@@ -102,15 +103,21 @@ def product_detail(request):
         }
         books_details.append(book_detail)
 
-    return JsonResponse({'books': books_details})
+    # Fetch recommendations
+    recommendations_response = search_and_recommend(request)
+    recommendations = {}
+    if recommendations_response.status_code == 200:
+        recommendations_content = json.loads(recommendations_response.content)
+        recommendations = recommendations_content.get('recommendations', [])
+    else:
+        recommendations = {'error': 'Error fetching recommendations'}
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
+    return JsonResponse({'books': books_details, 'recommendations': recommendations})
 
 
 # Set up logging
 logger = logging.getLogger(__name__)
 
-# Set your secret key. Remember to switch to your live secret key in production!
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 @csrf_exempt
@@ -148,6 +155,12 @@ def cart(request):
             title = data.get('title')
             price = data.get('price')
 
+            if not title or not price:
+                return JsonResponse({'error': 'Title and price are required'}, status=400)
+
+            book, created = Book.objects.get_or_create(title=title, defaults={'price': price})
+            logger.info("Received POST data: title=%s, price=%s", title, price)
+
             # Create line items for Stripe session
             line_items = [{
                 'price_data': {
@@ -169,8 +182,17 @@ def cart(request):
                 cancel_url=request.build_absolute_uri(reverse('failed')),
             )
 
+            order = Order()
+            order.book = book
+            order.stripe_payment_intent = session.payment_intent
+            order.amount = int(book.price)
+            order.save()
+
             return JsonResponse({'session_id': session.id})
 
+        except json.JSONDecodeError as e:
+            logger.error("JSON decode error: %s", str(e))
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
         except stripe.error.StripeError as e:
             logger.error("Stripe error: %s", str(e))
             return JsonResponse({'error': 'Stripe error', 'details': str(e)}, status=500)
@@ -185,11 +207,18 @@ def cart(request):
 def payment_success(request):
     # Retrieve the session_id from the query parameters
     session_id = request.GET.get('session_id')
+    if session_id is None:
+        return HttpResponseNotFound()
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    the_session = stripe.checkout.Session.retrieve(session_id)
+    order = get_object_or_404(Order, stripe_payment_intent=the_session.payment_intent)
+    order.has_paid = True
+    order.save()
 
-    if not session_id:
-        return JsonResponse({'error': 'No session ID provided'}, status=400)
+    # if not session_id:
+    #     return JsonResponse({'error': 'No session ID provided'}, status=400)
 
-    return render(request, 'success.html', {'session_id': session_id})
+    return render(request, 'success.html', {'order': order})
 
 # Failed view
 @csrf_exempt

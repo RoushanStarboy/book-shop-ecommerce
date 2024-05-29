@@ -91,9 +91,11 @@ DATABASES = {
 }
 
 
-STRIPE_SECRET_KEY = 'sk_test_51PIanLSGoqpe1qqGNHzu06NtuJUdHJmPnjcVajCETrqyAVPS2lyPrQTFbS2bQQtzOUlBshcDb1V8sgLMRi9BN6Qc008fdNczBX'
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51PIanLSGoqpe1qqGWD2IZXMeDVYNGE7OpbeOXJTO4I5g6l7pd4fAxcshCfMtCtX8vaqNpXPyoCZNBMyq5z2w6Gv600zkr8xYbg'
+# STRIPE_SECRET_KEY = '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'
+# STRIPE_PUBLISHABLE_KEY = 'pk_live_51PIanLSGoqpe1qqGfGjK4dv2aCQiS46BuOVZ0Q5JOZAn8wBt3bHvew80bL5bWfhrvv7cFtbLkbLitsitdvZni4AL00etjGOAaO'
 
+STRIPE_SECRET_KEY = 'sk_test_51PIanLSGoqpe1qqGXRcwmzWBiQhIHmtHZieJA0iZ9fyi1iPz6Em7BjChIWE56UilxPqqEkgPOQlXrw6Hi5oGn1wh00stSQn9Ll'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51PIanLSGoqpe1qqGLl6MCCj8oATdAJWVGQdDV0MG0dfNzwQvtFAXh09XnwQNVmidBRfWEpIvRxVlR83oFqBFOYHu00v70WZZTH'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
