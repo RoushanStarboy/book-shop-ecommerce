@@ -1,7 +1,7 @@
 db.sqlite3
 git rm --cached db.sqlite3
 env/
-.pyc
+*.pyc
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

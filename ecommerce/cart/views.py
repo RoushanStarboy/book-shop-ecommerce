@@ -13,6 +13,7 @@ from django.urls import reverse
 from recommender.views import search_and_recommend
 
 
+
 def get_cart(request):
     """
     Retrieves cart items from the session or creates an empty cart.
@@ -154,6 +155,7 @@ def cart(request):
             data = json.loads(request.body)
             title = data.get('title')
             price = data.get('price')
+            print(price)
 
             if not title or not price:
                 return JsonResponse({'error': 'Title and price are required'}, status=400)
