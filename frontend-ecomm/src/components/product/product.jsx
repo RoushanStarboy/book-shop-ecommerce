@@ -23,9 +23,10 @@ function Product() {
   const [curentPage, setCurrentPage] = useState(1);
   const perPage = 4;
   const location = useLocation();
-  const { title, image, author, price } = location.state;
 
-  const { cartCount, handleAddToCart } = useContext(CartContext);
+  const { title = '', image = '', author = '', price = '' } = location.state || {};
+
+  const { cartCount, handleAddToCart, getCartItemCount, handleRemoveFromCart } = useContext(CartContext);
 
   const navigate = useNavigate();
 
@@ -38,13 +39,25 @@ function Product() {
     });
   };
 
+  const handleAddBookToCart = (e) => {
+    e.preventDefault();
+    handleAddToCart({ title, image, author, price });
+  };
+
+  const handleRemoveBookFromCart = (e) => {
+    e.preventDefault();
+    const index = recomPop.findIndex(item => item.title === title);
+    if (index !== -1) {
+      handleRemoveFromCart(index);
+    }
+  };
+
   useEffect(() => {
     const allrecom = async () => {
       try {
-        const data = await Recommend_popular(); // Fetch data
+        const data = await Recommend_popular();
         if (data.top_books) {
-          // Checking if the 'top_books' key exists
-          setRecomPop(data.top_books); // changing State here <<><><><>>
+          setRecomPop(data.top_books);
         } else {
           console.error("Data received does not contain 'top_books':", data);
         }
@@ -70,6 +83,8 @@ function Product() {
       setCurrentPage(curentPage + 1);
     }
   };
+
+  const bookQuantity = getCartItemCount(title);
 
   return (
     <>
@@ -163,9 +178,10 @@ function Product() {
                   Buy
                 </Link>
               </div>
-              <box style={{ minHeight: "4%", minWidth: "2%", position: "absolute", backgroundColor: "black", color: "#262682", textAlign: "center", borderRadius: "50%" }}><b>{cartCount}</b></box>
+              <div style={{ minHeight: "4%", minWidth: "2%", position: "absolute", backgroundColor: "black", color: "#262682", textAlign: "center", borderRadius: "50%" }}><b>{bookQuantity}</b></div>
               <div id="addCart">
-                <Link onClick={handleAddToCart}> Add To Cart </Link>
+                <Link to="#" onClick={handleAddBookToCart}> Add To Cart </Link>
+                <Link to="#" onClick={handleRemoveBookFromCart}> Remove </Link>
               </div>
             </div>
           </aside>

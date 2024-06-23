@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from '../all books/componenta/card';
 import "./allbooks.css";
-import { NavLink } from "react-router-dom";
 import { ReactComponent as WelcomeSVG } from "./componenta/welcome.svg";
 
 
@@ -57,9 +56,9 @@ function AllBooks() {
             <div id="nextPage">
                 <button onClick={nextPage} disabled={currentPage >= totalPages}> Next Page</button>
             </div>
-            <NavLink to= "/products" style={{textDecoration:"none"}}>
-            <div id="all-card">
             
+            <div id="all-card">
+                
                 {books.map(book => (
                     
                     <Card
@@ -67,12 +66,12 @@ function AllBooks() {
                         Name={book["Book-Title"]}
                         bookAuthor={book["Book-Author"]}
                         Image={book["Image-URL-L"]}
+                        price={book["Price"]}
                     />
                     
                 ))}
-            
             </div>
-            </NavLink>
+            
             <div id="previousPage">
                 <button onClick={previousPage} disabled={currentPage === 1}> Previous Page</button>
             </div>

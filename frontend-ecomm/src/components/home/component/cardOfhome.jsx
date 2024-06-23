@@ -1,8 +1,22 @@
 import React from "react";
 import "./cardOfHome.css";
+import { useNavigate } from 'react-router-dom';
 function CardOfHome (props){
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/products', {
+            state: {
+                title: props.Name,
+                image: props.Image,
+                author: props.author,
+                price: props.Price,
+            },
+        });
+    };
     return<>
-        <main id="cardOfHome" style={{position:"relative"}}>
+        <main id="cardOfHome" style={{position:"relative"}} onClick={handleClick}>
             <div id="homeImage" style={{backgroundColor: "white", minHeight: "350px", minWidth:" 100%", borderRadius: "inherit", position:"absolute"}}>
                 <img src= {props.Image} alt="book"/>
             </div>
