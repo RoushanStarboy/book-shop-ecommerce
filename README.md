@@ -106,4 +106,4 @@ This project is licensed under the MIT License.
 
 *BookNest.In* - Bringing the offline book market online, enhancing sales, and offering a convenient shopping experience for book lovers.
 
-For more detailed information, refer to the [Project Report](./Final%20Project%20Group%2015%20Report.pdf).
+For more detailed information, refer to the [Project Report]([Final Project Group 15 Report..pdf](https://github.com/RoushanStarboy/book-shop-ecommerce/blob/5b0736768ce596630dd45e0e0b7f097d56d62743/Final%20Project%20Group%2015%20Report..pdf)).
