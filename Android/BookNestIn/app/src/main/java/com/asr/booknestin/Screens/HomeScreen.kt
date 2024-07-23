@@ -1,45 +1,82 @@
 package com.asr.booknestin.Screens
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemDefaults
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import java.util.Locale
+import coil.compose.rememberAsyncImagePainter
+import com.asr.booknestin.Books
+import com.asr.booknestin.MainViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(navController: NavController) {
-    Text(text = "Home Screen Test")
+fun HomeScreen(navController: NavController, modifier: Modifier = Modifier) {
+    val booksViewModel: MainViewModel = viewModel()
+    val viewState by booksViewModel.booksState
+    Box(modifier = Modifier.fillMaxSize()) {
+        when {
+            viewState.loading -> {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+            }
+            viewState.error != null -> {
+                Text(
+                    text = "Error Occurred: ${viewState.error}",
+                    modifier = Modifier.align(Alignment.Center),
+                    color = Color.Red
+                )
+            }
+            viewState.list.isNotEmpty() -> {
+                BookScreen(books = viewState.list)
+            }
+            else -> {
+                Text("No books available", modifier = Modifier.align(Alignment.Center))
+            }
+        }
+    }
+}
+
+@Composable
+fun BookScreen(books: List<Books>) {
+    LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = Modifier.fillMaxSize()) {
+        items(books) { book ->
+            BookItem(books = book)
+        }
+    }
+}
+
+@Composable
+fun BookItem(books: Books) {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val painter = rememberAsyncImagePainter(books.ImageURLL ?: "")
+        Image(
+            painter = painter,
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1f)
+        )
+        Text(
+            text = books.BookTitle ?: "No Title",
+            color = Color.Black,
+            style = TextStyle(fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(top = 4.dp)
+        )
+    }
 }
