@@ -1,3 +1,6 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+/env
+/ecommerce/recommender/migrations
+/ecommerce/recommender/__pycache__
