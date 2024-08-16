@@ -2,35 +2,40 @@
     height: 100vh;
     width: auto;
     background-color: #f7f7f7;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.fixsection2{
+    height:40%;
+    width: auto;
+    display: flex;
+    flex-direction: row;
 }
 #section2 #sc2sc1p1{
-    height: 40vh;
-    width: 50vw;
-    font-size: 50px;
+    height: 20vh;
+    min-width: 50%;
+    font-size: 3vw;
     text-transform: uppercase;
     display: flex;
-    float: left;
     font-family: "Poetsen One", sans-serif;
     font-weight: 400;
     font-style: normal;
-    position: absolute;
-    top: 5vh;
+    box-sizing: border-box;
 }
 
 #section2 #sc2sc2p1{
     height: 40vh;
-    width: 40vw;
-    float: right;
-    position: relative;
-    top: 5vh;
+    min-width: 50%;
     font-family:"sans-serif";
     font-style:oblique;
     padding: 50px;
+    box-sizing: border-box;
+
 }
 
 #section2 #sc2sc2p1 p{
-    font-size: 18px;
+    font-size: 1.2vw;
 }
 
 #recom-link{
@@ -49,25 +54,22 @@
     border: none;
     margin-top: 10px;
     margin-bottom: 10px;
-    position: relative;
-    left: 35%;
 }
 
 
 #sc2sc3p1{
     height: 30vh;
-    width: 50vw;
-    position: absolute;
-    top: 50%;
-    left: 20vw;
+    width: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 50px;
     border: 2px solid #064163e5;
     font-weight: 800;
-    font-size: larger;
-
+    font-size: 1.6vw;
+    box-sizing: border-box;
+    clear: both;
+    margin-top: 3vh;
 }
 
 .fixingMessage{
@@ -75,9 +77,6 @@
     color: white;
     height: 10vh;
     width: 15vw;
-    position: absolute;
-    top: 80%;
-    left: 36vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -93,15 +92,12 @@
 #sc2sc3p2 {
     height: 40vh;
     width: 25vw;
-    position: absolute;
-    top: 55%;
 }
 
 #sec2form{
     height: 100%;
     width: 100%;
     border-radius: 50px;
-    position: relative;
     padding-left: 10px;
 }
 
@@ -130,15 +126,10 @@
     border-radius: 10px;
     text-align: center;
     justify-content: center;
-    position: relative;
-    left: 40%;
 }
 
 #messageClose{
-    position: absolute;
-    top: 2%;
     border-radius: 40%;
     height: 3vh;
     width: 2vw;
-    right: 2%;
 }

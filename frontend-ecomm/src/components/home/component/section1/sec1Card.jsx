@@ -35,7 +35,7 @@ const BookCard = (props) => {
                     <p>{props.author}</p>
                 </div>
                 <div id='sec1cardrating'>
-                    <div id='rate'>Ratings :</div> <div id='point'>{props.rating}</div>
+                    <div id='rate'>Ratings :</div> <div id='point'>{props.rating.toFixed(2)}</div>
                 </div>
                 <div id='sec1cardprice'>
                     <p><b>Price :</b> {props.price} ₹</p>

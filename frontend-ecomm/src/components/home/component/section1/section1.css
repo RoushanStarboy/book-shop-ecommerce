@@ -1,7 +1,8 @@
 #section1{
     min-height: 100vh;
-    width: 100%;
+    max-width: 100vw;
     background-color: #f7f7f7;
+    overflow-x:hidden;
 }
 
 #sc1ar1{
@@ -51,10 +52,9 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 230px;
-    min-width: 230px;
+    height: 30vh;
+    min-width: 13vw;
     background-color: black;
-    margin-right: 20px;
     align-items: center;
     justify-content: center;
     border-radius: 30px;
@@ -67,8 +67,8 @@
 
 #sec1cardImg{
     position: relative;
-    height: 200px;
-    width: 200px;
+    height: 100%;
+    width: 100%;
     /* background-color: blue; */
     border-radius: 20px;
 }
@@ -119,14 +119,17 @@
 }
 #sec1cardtitle{
     min-height: 30%;
-    height: fit-content;
     width: 100%;
-    background-color: transparent;
+    background-color: transparent !important;
     font-size: larger;
     font-weight: 800;
     white-space: wrap;
-    overflow: hidden;
-
+    display: flex;
+    justify-content: center;
+    align-items:end;
+}
+#sec1cardtitle p{
+    font-size: 1vw;
 }
 #sec1cardauthor{
     min-height: 20%;
@@ -135,18 +138,17 @@
     align-self: center;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
     font-weight: 600;
-    font-size: large;
-    border-radius: 20px;
     opacity: 0.7;
     color: #7b97b6;
-    border-radius: 20px;
+    border-radius: 10px;
     background-color: #9e2461;
     
 }
 #sec1cardauthor p{
     filter: drop-shadow(50px 50px 50px white);
+    font-size: 1vw;
+    text-align: center;
 }
 
 

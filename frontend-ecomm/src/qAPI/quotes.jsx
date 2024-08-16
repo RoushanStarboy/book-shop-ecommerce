@@ -1,9 +1,12 @@
 async function randomQuote(){
   try {
-    const response = await fetch('https://api.quotable.io/random');
-    const quote = await response.json();
-    const content = quote.content;
-    const author = quote.author;
+    const response = await fetch('https://api.api-ninjas.com/v1/quotes?category=happiness',{
+      headers: {
+        'X-Api-Key': 'HPrGlclFfEP+RumTwvy8Dg==uvwfpc6nVR1aS93S'
+    }});
+    const quotes = await response.json();
+    const content = quotes.quote;
+    const author = quotes.author;
   
     return{content,author};
     

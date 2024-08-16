@@ -13,6 +13,7 @@ function Section2(){
 
     return(
         <main id="section2">
+            <div className="fixsection2">
             <section id="sc2sc1p1">
             <p>Feeling lost?<br/> We believe you can find<br/> yourself between the pages.</p>
             </section>
@@ -22,6 +23,7 @@ function Section2(){
             Start your own adventure and join us in rewriting their narratives, one page at a time.</p>
             <NavLink to="/allbooks"><span id="recom-link"> Explore Yourself<hr/> </span> </NavLink>
             </section>
+            </div>
             <section id="sc2sc3p1">
             <p>More than just a bookstore, a community of change. Discover powerful stories and support a cause close to our hearts. Every book you choose empowers vulnerable women to break free from the cycle of disadvantage. Let's build a brighter future, one page at a time.</p>
             </section>
