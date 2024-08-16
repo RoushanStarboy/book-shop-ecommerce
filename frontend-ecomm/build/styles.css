@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,body {
+height: 100%;
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: #f7f7f7;
+}
+
+*::selection {
+  background-color: black;
+  color: #f7f7f7;
+}
