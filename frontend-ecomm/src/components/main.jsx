@@ -36,7 +36,8 @@ function Main() {
     </Routes>
     </CartProvider>
     </LayoutComponent>
-    </main></>
+    </main>
+    </>
   );
 }
 

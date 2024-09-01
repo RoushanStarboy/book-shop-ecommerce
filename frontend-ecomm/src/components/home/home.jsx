@@ -66,8 +66,8 @@ function Home() {
     };
 
     fetchQuote();
-    const intervalId = setInterval(fetchQuote, 10000);
-    return () => clearInterval(intervalId);
+    const intervalId =setInterval(fetchQuote, 10000);
+    return () => clearInterval(intervalId); 
   }, []);
 
   const [on, setOn] = useState("none");
@@ -79,7 +79,7 @@ function Home() {
     setOn("none");
   };
 
-  const indexOfLastBook = curentPage * perPage;
+  const indexOfLastBook = curentPage * perPage; 
   const indexOfFirstBook = indexOfLastBook - perPage;
   const indexOfCureentBook = results && results.recommendations ? results.recommendations.slice(indexOfFirstBook, indexOfLastBook) : [];
 

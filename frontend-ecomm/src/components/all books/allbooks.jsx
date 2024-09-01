@@ -14,7 +14,7 @@ function AllBooks() {
     useEffect(() => {
         const fetchBooks = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/recommender/api/books/`, {
+                const response = await axios.get(`https://book-shop-ecommerce-1.onrender.com/recommender/api/books/`, {
                     params: {
                         page: currentPage,
                         page_size: perPage

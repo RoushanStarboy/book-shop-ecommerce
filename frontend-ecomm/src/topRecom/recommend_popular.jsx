@@ -3,7 +3,7 @@ import axios from "axios";
 
 const options = {
     method: 'GET',
-    url: 'http://127.0.0.1:8000/recommender/recommendpopular/',
+    url: 'https://book-shop-ecommerce-1.onrender.com/recommender/recommendpopular/',
   };
   
 
