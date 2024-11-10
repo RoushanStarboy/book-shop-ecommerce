@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from '../all books/componenta/card';
 import "./allbooks.css";
-import { ReactComponent as WelcomeSVG } from "./componenta/welcome.svg";
+// import { ReactComponent as WelcomeSVG } from "./componenta/welcome.svg";
 
 
 function AllBooks() {
@@ -47,7 +47,7 @@ function AllBooks() {
     return (
         <>
             <div id="heading-books">
-                <WelcomeSVG style={{height:"100%", width:"500%"}}/>
+                {/* <WelcomeSVG style={{height:"100%", width:"500%"}}/> */}
 
             </div>
             <div id="previousPage">

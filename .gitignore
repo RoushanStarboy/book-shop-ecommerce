@@ -6,3 +6,4 @@
 /env
 *.pyc
 *.pyc
+node_modules/
